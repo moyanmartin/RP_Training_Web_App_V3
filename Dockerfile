@@ -1,18 +1,22 @@
-# Stage 1: Build
+# Use the official .NET SDK image to build the app
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Use the official .NET SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
-
-# Copy csproj and restore as distinct layers
-COPY WebApplication1/*.csproj ./WebApplication1/
-RUN dotnet restore ./WebApplication1/WebApplication1.csproj
-
-# Copy everything else and build
+WORKDIR /src
+COPY ["WebApplication1/WebApplication1.csproj", "WebApplication1/"]
+RUN dotnet restore "WebApplication1/WebApplication1.csproj"
 COPY . .
-WORKDIR /app/WebApplication1
-RUN dotnet publish -c Release -o /app/out
+WORKDIR "/src/WebApplication1"
+RUN dotnet build "WebApplication1.csproj" -c Release -o /app/build
 
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM build AS publish
+RUN dotnet publish "WebApplication1.csproj" -c Release -o /app/publish
+
+# Copy the build app into the base image and define entry point
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApplication1.dll"]
