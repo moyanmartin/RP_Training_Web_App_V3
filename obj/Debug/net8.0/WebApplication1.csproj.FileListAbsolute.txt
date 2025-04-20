@@ -455,6 +455,7 @@ C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\Web
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -492,6 +493,7 @@ C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\Web
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.Formats.Asn1.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.IO.Pipelines.dll
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.Memory.Data.dll
@@ -601,6 +603,7 @@ C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\Web
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\WebApplication1.styles.css
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
@@ -617,6 +620,3 @@ C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\Web
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
-C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\bin\Debug\net8.0\System.Formats.Asn1.dll
-C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
