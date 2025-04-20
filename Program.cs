@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // --- IMPORTANT for Render: bind to the correct port ---
 // Use Render's environment PORT variable or default to 8080
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+Console.WriteLine($"App running on port: {port}");  // Log the port to verify it's correct
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 try
@@ -80,11 +81,14 @@ try
         c.RoutePrefix = string.Empty; // Serve Swagger UI at the root path
     });
 
-    // Enable HTTPS Redirection
-    app.UseHttpsRedirection();
+    // Disable HTTPS redirection (if needed on Render)
+    // app.UseHttpsRedirection();
 
     // Enable Authorization
     app.UseAuthorization();
+
+    // Health check endpoint for debugging
+    app.MapGet("/health", () => Results.Ok("Application is running"));
 
     // Map controllers to routes
     app.MapControllers();

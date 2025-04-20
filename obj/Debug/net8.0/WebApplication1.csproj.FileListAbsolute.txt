@@ -620,3 +620,4 @@ C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\Web
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
+C:\Users\moyan\OneDrive\Documents\Applications_Folder\RP_Training_Web_App_V3\WebApplication1\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
