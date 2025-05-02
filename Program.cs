@@ -5,6 +5,7 @@ using FluentEmail.Smtp;
 using System.Net;
 using System.Net.Mail;
 using WebApplication1.Models;
+using Google.Protobuf.WellKnownTypes;
 
 var builder = WebApplication.CreateBuilder(args);
 
