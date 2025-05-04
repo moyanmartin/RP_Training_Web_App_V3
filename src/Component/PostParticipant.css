@@ -1,0 +1,21 @@
+
+
+form {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;  /* centers the form */
+  padding: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+
+input, select, button {
+  width: 100%;           /* Ensure all input, select, and button elements take full width */
+}
+
+.submit-button {
+  width: 100%;           /* Ensure the submit button takes full width of the container */
+}

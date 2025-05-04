@@ -1,0 +1,66 @@
+/* The form container styles */
+.form-container {
+    width: 100%;
+    max-width: 600px;  /* Max width to keep the form from stretching too wide */
+    margin: 50px auto; /* Centers the form and adds margin at the top and bottom */
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style each form field container (column) */
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;  /* Space between form fields */
+    margin-bottom: 20px;  /* Space after each form column */
+  }
+  
+  /* Input and select field styles */
+  .form-column input,
+  .form-column select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Radio button group styling */
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;  /* Space between radio buttons */
+  }
+  
+  .radio-options {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .radio-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  /* Submit button styling */
+  .submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  

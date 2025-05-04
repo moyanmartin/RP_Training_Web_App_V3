@@ -1,0 +1,126 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    align-items: flex-start; 
+    padding: 40px;
+    
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(166, 218, 237);
+}
+
+  
+  .home-image {
+    position: fixed;      /* Fixes it to the screen */
+    top: 20px;            /* Distance from the top */
+    left: 20px;          /* Distance from the right */
+    z-index: 1000;        /* Makes sure it stays on top of other elements */
+    }
+  
+  .home-image img {
+    width: 400px; /* Adjust width as needed */
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .home-RJ-image {
+    position: fixed;      /* Fixes it to the screen */
+    top: 2px;            /* Distance from the top */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;        /* Makes sure it stays on top of other elements */
+    }
+  
+  .home-RJ-image img {
+    width: 180px; /* Adjust width as needed */
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .home-content {
+    flex: 1;
+    max-width: 600px;
+  }
+  
+  .styled-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .styled-V2-button {
+    padding: 10px 10px;
+    background-color: #d4da83;
+    color: rgb(10, 2, 2);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .admin-dropdown {
+    position: fixed;      /* Fixes it to the screen */
+    top: 100px;            /* Distance from the top */
+    right: 20px;          /* Distance from the right */
+    z-index: 1000;       /* Makes sure it stays on top of other elements */
+}
+
+
+.change-password {
+  position: fixed;      /* Fixes it to the screen */
+  top: 50px;            /* Distance from the top */
+  right: 20px;          /* Distance from the right */
+ /* z-index: 1000;*/        /* Makes sure it stays on top of other elements */
+}
+
+.logout {
+  position: fixed;      /* Fixes it to the screen */
+  top: 5px;            /* Distance from the top */
+  right: 20px;          /* Distance from the right */
+
+}
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%; /* Right below the button */
+    right: 0;
+    background-color: white;
+    min-width: 160px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu li {
+    margin: 0;
+  }
+  
+  .dropdown-menu li button {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    color: #333;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu li button:hover {
+    background-color: #f1f1f1;
+  }
+  

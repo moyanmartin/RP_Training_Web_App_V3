@@ -1,0 +1,43 @@
+
+ Radio button group styling 
+/* Radio button group styling */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-options {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+/* Submit button styling */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
+select:empty {
+  color: gray;
+  font-style: italic;
+}
+
+.my-custom-input::placeholder {
+  color: gray;
+  font-style: italic;
+}
