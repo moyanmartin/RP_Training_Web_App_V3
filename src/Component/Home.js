@@ -45,14 +45,7 @@ const Home = () => {
     };
     setUser(userData);
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("typeOfUser");
-    localStorage.removeItem("fullName");
-    localStorage.removeItem("email");
-    navigate('/');  // Using navigate for a more React-friendly redirect
-  };
-
+  
   return (
     <div className="home-container">
       {/* Left side with image */}
