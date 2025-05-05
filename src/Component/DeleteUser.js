@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { hostName } from './HostNames';
+//const hostName = process.env.REACT_APP_HOST_NAME;
 
 const DeleteUser = () => {
   const navigate = useNavigate();

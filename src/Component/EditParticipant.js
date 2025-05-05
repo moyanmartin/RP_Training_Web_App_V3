@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { fetchParticipantById } from "./fetchParticipantByID";
-import { hostName, DBhostName } from './HostNames';
-import { Link, useNavigate } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+import { hostName } from './HostNames';
 import {
   GenderDropdown,
   ModalityDropdown,
@@ -17,6 +17,7 @@ import {
   CommunityDropdown
 } from "./Dropdowns";
   
+//const hostName = process.env.REACT_APP_HOST_NAME;
 
   const EditParticipant = () => {
 
@@ -59,15 +60,16 @@ import {
       certified: "no",
     });
   
-    const [parishes, setParishes] = useState([]);
-    const [communities, setCommunities] = useState([]);
+    //const [parishes, setParishes] = useState([]);
+    //const [communities, setCommunities] = useState([]);
 
-    const [participantParishes, setParticipantParishes] = useState([]);
-    const [participantCommunities, setParticipantCommunities] = useState([]);
+    //const [participantParishes, setParticipantParishes] = useState([]);
+    //const [participantCommunities, setParticipantCommunities] = useState([]);
 
-    const [institutions, setInstitutionType] = useState([]);
-    const [institutionNames, setInstitutionName] = useState([]);
-    const [positions, setPosition] = useState([]);
+    //const [institutions, setInstitutionType] = useState([]);
+    //const [institutionNames, setInstitutionName] = useState([]);
+    //const [positions, setPosition] = useState([]);
+  
   
 
       const handleParticipantParishChange = (event) => {
@@ -131,7 +133,7 @@ import {
     
 
     fetchParticipant();
-  }, [id]);
+  }, [id, submitterEmail]); 
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -304,7 +306,7 @@ import {
           <div style={{ width: '48%' }}>
             <label>Parish of institution:</label>
              <ParishDropdown 
-                  value={participant.institutionParishName} 
+                  value={participant.institutionParish} 
                   onChange={handleInstitutionParishChange}
                  // style={errors.participant.institutionParishName ? { border: '1px solid red' } : {}}
                   />     
@@ -339,7 +341,7 @@ import {
               type="text"
               name="instructorName"
               value={participant.trainingInstructor2}
-              onChange={(e) => setParticipant({ ...participant, ptrainingInstructor2: e.target.value })}
+              onChange={(e) => setParticipant({ ...participant, trainingInstructor2: e.target.value })}
             />
           </div>
   
@@ -387,7 +389,7 @@ import {
             <ParticipantPositionDropdown 
                 institution={participant.institutionType} 
                 value={participant.position} 
-                onChange={(e) => setPosition(e.target.value)} 
+                onChange={(e) => setParticipant({ ...participant, position: e.target.value })}
                // style={errors.participant.position? { border: '1px solid red' } : {}}
                 />
           </div>

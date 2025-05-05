@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { hostName, DBhostName } from './HostNames';
+import { hostName } from './HostNames';
+
+//const hostName = process.env.REACT_APP_HOST_NAME;
 
 const ViewIndividualRequests = () => {
   const [viewIndividualRequests, setViewIndividualRequests] = useState([]);

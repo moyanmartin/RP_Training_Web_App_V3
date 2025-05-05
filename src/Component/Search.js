@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { hostName } from './HostNames';
 
+//const hostName = process.env.REACT_APP_HOST_NAME;
+
 const Search = () => {
   const navigate = useNavigate();
   const [ParticipantID, setParticipantID] = React.useState("");

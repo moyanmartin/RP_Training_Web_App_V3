@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { hostName, DBhostName } from './HostNames';
+import { hostName } from './HostNames';
+//const hostName = process.env.REACT_APP_HOST_NAME;
+
+
+
 
 const PendingRequests = () => {
   const [pendingRequests, setPendingRequests] = useState([]);

@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom"; // ✅ useParams instead of useSea
 import "./AddUser.css";
 import { TypeOfRequestDropdown } from "./Dropdowns";
 import { fetchParticipantById } from "./fetchParticipantByID";
-import { hostName, DBhostName } from './HostNames';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { hostName } from './HostNames';
+//const hostName = process.env.REACT_APP_HOST_NAME;
+
 
 const DeleteRequest = () => {
 

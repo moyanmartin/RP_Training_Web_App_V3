@@ -4,6 +4,8 @@ import "./AddUser.css";
 import { RJCentreLocationDropdown, TypeOfUserDropdown, StaffPositionDropdown } from "./Dropdowns";  // Import StaffPositionDropdown
 import { hostName } from './HostNames';
 
+//const hostName = process.env.REACT_APP_HOST_NAME;
+
 
 export class AddUser extends Component {
 

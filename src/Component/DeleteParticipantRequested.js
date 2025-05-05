@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { hostName, DBhostName } from './HostNames';
+import { hostName } from './HostNames';
+//const hostName = process.env.REACT_APP_HOST_NAME;
 
 const DeleteParticipantRequested = () => {
   const { id, logNumber } = useParams();

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { hostName, DBhostName } from './HostNames';
+import { hostName } from './HostNames';
+//const hostName = process.env.REACT_APP_HOST_NAME;
 
 const DenyDeleteRequest = () => {
   const { logNumber } = useParams(); // logNumber passed in the URL
@@ -44,14 +45,16 @@ const DenyDeleteRequest = () => {
     <div style={{ padding: "1rem" }}>
       <h2>Respond to Request #{logNumber}</h2>
       <form onSubmit={submitHandler}>
+
         <label>Comment:</label>
-        <input
-          type="text"
-          name="responderComment"
-          value={responderComment}
-          onChange={(e) => setResponderComment(e.target.value)}
-          required
-        />
+              <textarea
+              name="responderComment"
+              value={responderComment}
+              onChange={(e) => setResponderComment(e.target.value)}
+              required
+              rows={4}
+              style={{ width: "100%", marginTop: "0.5rem" }}
+            />
         <br />
         <button type="submit" className="submit-button" style={{ marginTop: "1rem" }}>
           Submit Response

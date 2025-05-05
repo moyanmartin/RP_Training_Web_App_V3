@@ -1,6 +1,6 @@
 import axios from "axios";
-
 import { hostName } from './HostNames';
+//const hostName = process.env.REACT_APP_HOST_NAME;
 
 /**
  * Fetch participant details by ID
