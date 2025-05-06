@@ -1,8 +1,11 @@
+// In components/Dropdowns.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import '../App.css';
 import { hostName } from './HostNames';
-// const hostName = process.env.REACT_APP_HOST_NAME;
+import '../App.css';
+
+
+
 
 export function ParishDropdown({ value, onChange }) {
   const [parishes, setParishes] = useState([]);
@@ -54,19 +57,25 @@ export function CommunityDropdown({ parish, value, onChange }) {
   const [communities, setCommunities] = useState([]);
 
   useEffect(() => {
+    console.log("Fetching communities for parish:", parish);
+  
     if (parish) {
       axios.get(`https://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(parish)}`)
         .then(response => {
+          console.log("Received communities for", parish, ":", response.data); // Debug log for API response
           setCommunities(response.data);
         })
         .catch(error => {
           console.error("Error fetching communities:", error);
-          setCommunities([]);
+          setCommunities([]); // Clear communities on error
         });
     } else {
-      setCommunities([]); // Clear the communities if no parish selected
+      setCommunities([]); // Clear communities if no parish is selected
     }
-  }, [parish]); // Only watch `parish`
+  }, [parish]); // Only dependency is parish
+  
+
+  console.log("Rendering CommunityDropdown for parish:", parish); // Debug log for re-rendering
 
   return (
     <div>
@@ -90,19 +99,26 @@ export function ParticipantCommunityDropdown({ participantParish, value, onChang
   const [participantCommunities, setParticipantCommunities] = useState([]);
 
   useEffect(() => {
+    console.log("Fetching communities for parish:", participantParish);
+  
     if (participantParish) {
       axios.get(`https://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(participantParish)}`)
         .then(response => {
+          console.log("Received communities for", participantParish, ":", response.data); // Debug log for API response
           setParticipantCommunities(response.data);
         })
         .catch(error => {
           console.error("Error fetching communities:", error);
-          setParticipantCommunities([]);
+          setParticipantCommunities([]); // Clear communities on error
         });
     } else {
-      setParticipantCommunities([]); // Clear the communities if no parish selected
+      setParticipantCommunities([]); // Clear communities if no parish selected
     }
-  }, [participantParish]); // Only watch `participantParish`
+  }, [participantParish]); // Only dependency is participantParish
+  
+  
+
+  console.log("Rendering CommunityDropdown for parish:", participantParish); // Debug log for re-rendering
 
   return (
     <div>
@@ -112,6 +128,7 @@ export function ParticipantCommunityDropdown({ participantParish, value, onChang
         onChange={onChange}
         disabled={!participantParish}
         placeholder={participantParish ? "Type or select a community" : "Select parish first"}
+        
       />
       <datalist id="participantCommunity-options">
         {participantCommunities.map((participantCommunity, index) => (
@@ -121,6 +138,9 @@ export function ParticipantCommunityDropdown({ participantParish, value, onChang
     </div>
   );
 }
+
+
+
 
 export function TypeOfInstitutionDropdown({ value, onChange }) {
   const [institutions, setInstitutions] = useState([]);
@@ -217,6 +237,7 @@ export function ParticipantPositionDropdown({ institution, value, onChange }) {
   );
 }
 
+
 export function GenderDropdown({ value, onChange }) {
   const [genders, setGenders] = useState([]);
 
@@ -240,6 +261,7 @@ export function GenderDropdown({ value, onChange }) {
   );
 }
 
+
 export function ModalityDropdown({ value, onChange }) {
   const [modalities, setModalities] = useState([]);
 
@@ -262,6 +284,7 @@ export function ModalityDropdown({ value, onChange }) {
     </select>
   );
 }
+
 
 export function RJCentreLocationDropdown({ value, onChange }) {
   const [locations, setLocations] = useState([]);
@@ -308,7 +331,6 @@ export function TypeOfUserDropdown({ value, onChange }) {
     </select>
   );
 }
-
 
 export function TypeOfRequestDropdown({ value, onChange }) {
   const [typeOfRequests, setTypeOfRequests] = useState([]);

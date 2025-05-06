@@ -49,30 +49,38 @@ const DeleteRequest = () => {
     }
   }, [participantId]);
 
+  
+
   const submitHandler = async (event) => {
     event.preventDefault();
   
     try {
-    
+      // Ensure dateRequested has seconds
+      let fullDateRequested = dateRequested;
+      if (fullDateRequested.length === 16) {
+        fullDateRequested += ":00"; // Add seconds if missing
+      }
+  
       const formData = {
         Type_Of_Request: typeOfRequest,
         Participant_ID: participantId,
         Requester: requester,
         Requester_Email: requesterEmail,
         Requester_Comment: requesterComment,
-        Date_Requested: dateRequested,
+        Date_Requested: fullDateRequested,
       };
-      
+  
       await axios.post(`https://${hostName}/api/Request/AddRequest`, formData);
       console.log("Request submitted successfully");
       alert("Your request was submitted successfully!");
       navigate('/search');
-
+  
     } catch (error) {
       console.error("Error submitting request:", error);
       alert("There was an error submitting your request.");
     }
   };
+  
   
   
 

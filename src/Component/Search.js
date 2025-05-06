@@ -40,7 +40,7 @@ const Search = () => {
 
     try {
       const response = await axios.get(
-        `http://${hostName}/api/Participant/search?${params}`
+        `https://${hostName}/api/Participant/search?${params}`
       );
 
       if (response.data.length === 0) {
@@ -233,7 +233,9 @@ const Search = () => {
         try {
           
           const checkResponse = await axios.get(
-            `http://${hostName}:5019/api/Request/Exists`,
+
+            `https://${hostName}/api/Request/Exists`,
+            //`https://${hostName}:5019/api/Request/Exists`,
             {
               params: {
                 participantId: selectedParticipant.participants_ID,

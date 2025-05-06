@@ -15,7 +15,7 @@ const ViewIndividualRequests = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://${hostName}/api/Request/IndividualRequests?requesterEmail=${requesterEmail}`
+        `https://${hostName}/api/Request/IndividualRequests?requesterEmail=${requesterEmail}`
       );
       console.log("Fetched Requests:", response.data);
       setViewIndividualRequests(response.data);

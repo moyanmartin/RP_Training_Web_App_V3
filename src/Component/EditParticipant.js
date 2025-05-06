@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { fetchParticipantById } from "./fetchParticipantByID";
-
-import { useNavigate } from "react-router-dom";
 import { hostName } from './HostNames';
+import {  useNavigate } from "react-router-dom";
+
 import {
   GenderDropdown,
   ModalityDropdown,
@@ -17,7 +17,6 @@ import {
   CommunityDropdown
 } from "./Dropdowns";
   
-//const hostName = process.env.REACT_APP_HOST_NAME;
 
   const EditParticipant = () => {
 
@@ -59,16 +58,6 @@ import {
       submittedBy: "",
       certified: "no",
     });
-  
-    //const [parishes, setParishes] = useState([]);
-    //const [communities, setCommunities] = useState([]);
-
-    //const [participantParishes, setParticipantParishes] = useState([]);
-    //const [participantCommunities, setParticipantCommunities] = useState([]);
-
-    //const [institutions, setInstitutionType] = useState([]);
-    //const [institutionNames, setInstitutionName] = useState([]);
-    //const [positions, setPosition] = useState([]);
   
   
 
@@ -133,26 +122,12 @@ import {
     
 
     fetchParticipant();
-  }, [id, submitterEmail]); 
+  }, [id, submitterEmail]); // Add submitterEmail here
 
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    // Add validation to check if any required fields are missing
-   /* const requiredFields = [
-      "trainingDay1", "trainingDay2", "modality", "typeOfInstitution", "nameOfInstitution",
-      "parishName", "communityName", "participantFirstName", "participantLastName", "participantParishName",
-      "sex", "dateOfBirth", "position", "participantCommunityName", "centreLocation"
-    ];
-
-    for (const field of requiredFields) {
-      if (!participant[field]) {
-        alert(`Please fill out the ${field} field.`);
-        return;
-      }
-    }*/
-
-    // Check if dates are valid
+   
     const isValidDate = (date) => !isNaN(new Date(date).getTime());
 
     if (!isValidDate(participant.trainingDay1) || !isValidDate(participant.trainingDay2)) {
@@ -306,7 +281,7 @@ import {
           <div style={{ width: '48%' }}>
             <label>Parish of institution:</label>
              <ParishDropdown 
-                  value={participant.institutionParish} 
+                  value={participant.institutionParishName} 
                   onChange={handleInstitutionParishChange}
                  // style={errors.participant.institutionParishName ? { border: '1px solid red' } : {}}
                   />     
@@ -341,7 +316,7 @@ import {
               type="text"
               name="instructorName"
               value={participant.trainingInstructor2}
-              onChange={(e) => setParticipant({ ...participant, trainingInstructor2: e.target.value })}
+              onChange={(e) => setParticipant({ ...participant, ptrainingInstructor2: e.target.value })}
             />
           </div>
   
@@ -389,6 +364,7 @@ import {
             <ParticipantPositionDropdown 
                 institution={participant.institutionType} 
                 value={participant.position} 
+             
                 onChange={(e) => setParticipant({ ...participant, position: e.target.value })}
                // style={errors.participant.position? { border: '1px solid red' } : {}}
                 />
