@@ -63,7 +63,7 @@ const DeleteRequest = () => {
         Date_Requested: dateRequested,
       };
       
-      await axios.post(`http://${hostName}/api/Request/AddRequest`, formData);
+      await axios.post(`https://${hostName}/api/Request/AddRequest`, formData);
       console.log("Request submitted successfully");
       alert("Your request was submitted successfully!");
       navigate('/search');

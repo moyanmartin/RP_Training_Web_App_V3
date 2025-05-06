@@ -17,7 +17,7 @@ const PendingRequests = () => {
   const fetchPendingRequests = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://${hostName}/api/Request/PendingRequests`);
+      const response = await axios.get(`https://${hostName}/api/Request/PendingRequests`);
       console.log("Fetched Requests:", response.data); // Log the full response to debug
       setPendingRequests(response.data);
     } catch (error) {

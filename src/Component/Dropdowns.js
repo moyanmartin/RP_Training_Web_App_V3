@@ -8,7 +8,7 @@ export function ParishDropdown({ value, onChange }) {
   const [parishes, setParishes] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/parishes`)
+    axios.get(`https://${hostName}/api/DropDowns/parishes`)
       .then(response => {
         setParishes(response.data);
       })
@@ -31,7 +31,7 @@ export function ParticipantParishDropdown({ value, onChange }) {
   const [participantParishes, setParticipantParishes] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/parishes`)
+    axios.get(`https://${hostName}/api/DropDowns/parishes`)
       .then(response => {
         setParticipantParishes(response.data);
       })
@@ -55,7 +55,7 @@ export function CommunityDropdown({ parish, value, onChange }) {
 
   useEffect(() => {
     if (parish) {
-      axios.get(`http://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(parish)}`)
+      axios.get(`https://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(parish)}`)
         .then(response => {
           setCommunities(response.data);
         })
@@ -91,7 +91,7 @@ export function ParticipantCommunityDropdown({ participantParish, value, onChang
 
   useEffect(() => {
     if (participantParish) {
-      axios.get(`http://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(participantParish)}`)
+      axios.get(`https://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(participantParish)}`)
         .then(response => {
           setParticipantCommunities(response.data);
         })
@@ -126,7 +126,7 @@ export function TypeOfInstitutionDropdown({ value, onChange }) {
   const [institutions, setInstitutions] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/institutions`)
+    axios.get(`https://${hostName}/api/DropDowns/institutions`)
       .then(response => {
         setInstitutions(response.data);
       })
@@ -150,7 +150,7 @@ export function InstitutionNameDropdown({ institution, value, onChange }) {
 
   useEffect(() => {
     if (institution) {
-      axios.get(`http://${hostName}/api/DropDowns/institutionNames?institution=${encodeURIComponent(institution)}`)
+      axios.get(`https://${hostName}/api/DropDowns/institutionNames?institution=${encodeURIComponent(institution)}`)
         .then(response => {
           setInstitutionNames(response.data);
         })
@@ -186,7 +186,7 @@ export function ParticipantPositionDropdown({ institution, value, onChange }) {
 
   useEffect(() => {
     if (institution) {
-      axios.get(`http://${hostName}/api/DropDowns/participantPositions?institution=${encodeURIComponent(institution)}`)
+      axios.get(`https://${hostName}/api/DropDowns/participantPositions?institution=${encodeURIComponent(institution)}`)
         .then(response => {
           setParticipantPositions(response.data);
         })
@@ -221,7 +221,7 @@ export function GenderDropdown({ value, onChange }) {
   const [genders, setGenders] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/genders`)
+    axios.get(`https://${hostName}/api/DropDowns/genders`)
       .then(response => {
         setGenders(response.data);
       })
@@ -244,7 +244,7 @@ export function ModalityDropdown({ value, onChange }) {
   const [modalities, setModalities] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/modalities`)
+    axios.get(`https://${hostName}/api/DropDowns/modalities`)
       .then(response => {
         setModalities(response.data);
       })
@@ -267,7 +267,7 @@ export function RJCentreLocationDropdown({ value, onChange }) {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/rjCentreLocations`)
+    axios.get(`https://${hostName}/api/DropDowns/rjCentreLocations`)
       .then(response => {
         setLocations(response.data);
       })
@@ -290,7 +290,7 @@ export function TypeOfUserDropdown({ value, onChange }) {
   const [typeOfUsers, setTypeOfUsers] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/typeOfUsers`)
+    axios.get(`https://${hostName}/api/DropDowns/typeOfUsers`)
       .then(response => {
         setTypeOfUsers(response.data);
       })
@@ -314,7 +314,7 @@ export function TypeOfRequestDropdown({ value, onChange }) {
   const [typeOfRequests, setTypeOfRequests] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/typeOfRequests`)
+    axios.get(`https://${hostName}/api/DropDowns/typeOfRequests`)
       .then(response => {
         setTypeOfRequests(response.data);
       })
@@ -337,7 +337,7 @@ export function StaffPositionDropdown({ value, onChange }) {
   const [staffPositions, setStaffPositions] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${hostName}/api/DropDowns/staffPositions`)
+    axios.get(`https://${hostName}/api/DropDowns/staffPositions`)
       .then(response => {
         setStaffPositions(response.data);
       })

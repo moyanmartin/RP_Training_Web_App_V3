@@ -16,8 +16,8 @@ const DeleteUser = () => {
   const formatted = now.toISOString().slice(0, 19).replace('T', ' '); // example output: '2025-04-12 23:34:02'
 
 
-  const logDeleteUrl = `http://${hostName}/api/StaffRemoved/AddRemoved/`;
-  const deleteUserUrl = `http://${hostName}/api/Staff/${removedEmail}`;
+  const logDeleteUrl = `https://${hostName}/api/StaffRemoved/AddRemoved/`;
+  const deleteUserUrl = `https://${hostName}/api/Staff/${removedEmail}`;
   
 
   // Fetch Name when Email is entered
@@ -29,7 +29,7 @@ const DeleteUser = () => {
       }
 
       try {
-        const response = await axios.get(`http://${hostName}/api/Staff/${removedEmail}`);
+        const response = await axios.get(`https://${hostName}/api/Staff/${removedEmail}`);
         const { first_Name, last_Name } = response.data;
 
         if (first_Name && last_Name) {

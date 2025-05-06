@@ -208,7 +208,7 @@ import {
     try {
       // Correct endpoint and method (PUT request)
       const response = await axios.put(
-        `http://${hostName}/api/Participant/${id}`, // Use id in URL for the PUT request
+        `https://${hostName}/api/Participant/${id}`, // Use id in URL for the PUT request
         formData,
         { headers: { "Content-Type": "application/json" } }
       );

@@ -33,7 +33,7 @@ export class AddUser extends Component {
     event.preventDefault();
 
     try {
-      const checkResponse = await axios.get(`http://${hostName}/api/Staff/StaffExists`, {
+      const checkResponse = await axios.get(`https://${hostName}/api/Staff/StaffExists`, {
         params: { Email: this.state.email }
       });
 
@@ -61,7 +61,7 @@ export class AddUser extends Component {
     console.log("Submitting Data:", JSON.stringify(formData, null, 2));
 
     try {
-      const response = await axios.post(`http://${hostName}/api/Staff/add-staff`, formData, {
+      const response = await axios.post(`https://${hostName}/api/Staff/add-staff`, formData, {
         headers: { "Content-Type": "application/json" }
       });
       console.log("Server Response:", response.data);

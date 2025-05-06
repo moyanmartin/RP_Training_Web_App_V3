@@ -29,7 +29,7 @@ const DenyDeleteRequest = () => {
       await axios.put(
         
 
-        `http://${hostName}/api/Request/denyRequest/${logNumber}`,
+        `https://${hostName}/api/Request/denyRequest/${logNumber}`,
         formData
       );
       console.log("Request submitted successfully");

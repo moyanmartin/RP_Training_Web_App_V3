@@ -19,7 +19,7 @@ const DeleteParticipantRequested = () => {
     try {
       // Deleting participant
       await axios.delete(
-        `http://${hostName}/api/Participant/DeleteParticipant/${id}`
+        `https://${hostName}/api/Participant/DeleteParticipant/${id}`
       );
 
       // Prepare request update information
@@ -37,7 +37,7 @@ const DeleteParticipantRequested = () => {
 
       // Updating the request status
       await axios.put(
-        `http://${hostName}/api/Request/Update/${logNumber}`,
+        `https://${hostName}/api/Request/Update/${logNumber}`,
         updatedRequest
       );
 

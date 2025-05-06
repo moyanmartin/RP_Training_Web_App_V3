@@ -9,7 +9,7 @@ import { hostName } from './HostNames';
  */
 export async function fetchParticipantById(participantID) {
   try {
-    const response = await axios.get(`http://${hostName}/api/Participant/${participantID}`);
+    const response = await axios.get(`https://${hostName}/api/Participant/${participantID}`);
     
     const participant = response.data;
 

@@ -95,7 +95,7 @@ const PostParticipant = () => {
     const dob = formData.dateOfBirth ? new Date(formData.dateOfBirth).toISOString().split("T")[0] : "";
 
     try {
-      const check = await axios.get(`http://${hostName}/api/Participant/ParticipantExists`, {
+      const check = await axios.get(`https://${hostName}/api/Participant/ParticipantExists`, {
         params: {
           firstName: formData.participantFirstName,
           lastName: formData.participantLastName,
@@ -118,7 +118,7 @@ const PostParticipant = () => {
 
     const payload = { ...formData, Training_Day_1: day1, Training_Day_2: day2, Date_Of_Birth: dob, Submitted_By: submitterEmail };
     try {
-      const res = await axios.post(`http://${hostName}/api/Participant/AddParticipant`, payload, {
+      const res = await axios.post(`https://${hostName}/api/Participant/AddParticipant`, payload, {
         headers: { "Content-Type": "application/json" }
       });
       console.log("Server Response:", res.data);
