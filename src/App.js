@@ -15,6 +15,11 @@ import DenyDeleteRequest from "./Component/DenyDeleteRequest";
 
 import DeleteUser from "./Component/DeleteUser";
 
+import CommunityMapPage from "./Component/CommunityMap";
+
+
+
+
 function App() {
   return (
     <Routes>
@@ -24,6 +29,7 @@ function App() {
       <Route path="/addUser" element={<AddUser />} />
       <Route path="/deleteUser" element={<DeleteUser />} />
       <Route path="/post" element={<PostParticipant />} />
+      <Route path="/community-map" element={<CommunityMapPage />} />
       <Route path="/search" element={<Search />} />
       <Route path="/deleteRequest/:id" element={<DeleteRequest />} />
       <Route path="/individalRequests" element={<ViewIndividualRequests />} />

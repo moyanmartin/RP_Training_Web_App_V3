@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./PostParticipant.css";
 import axios from "axios";
 import { hostName } from "./HostNames";
+
+import CommunityMap from "./CommunityMap";
+
+
 import {
   GenderDropdown,
   ModalityDropdown,
@@ -11,14 +15,21 @@ import {
   InstitutionNameDropdown,
   ParishDropdown,
   ParticipantPositionDropdown,
-  ParticipantCommunityDropdown,
-  ParticipantParishDropdown,
   CommunityDropdown
 } from "./Dropdowns";
 
 
+
 const PostParticipant = () => {
 
+  //const navigate = useNavigate();
+
+const [showMap, setShowMap] = useState(false);
+
+const openMap = (e) => {
+  e.preventDefault();  // Prevent the form from being submitted if this is in the form
+  setShowMap(true);  // This will show the map
+};
 
   const [submitterEmail, setSubmitterEmail] = useState("");
 
@@ -37,6 +48,31 @@ const PostParticipant = () => {
   const [institutionType, setInstitutionType] = useState("");
   const [institutionName, setInstitutionName] = useState([]);
   const [position, setPosition] = useState("");
+
+
+  const [selectedFeature, setSelectedFeature] = useState({
+    COMM_NAME: '',
+    PARISH: '',
+    POST_CODES: ''
+  });
+
+  useEffect(() => {
+    if (selectedFeature.COMM_NAME) {
+      setFormData({
+        COMM_NAME: selectedFeature.COMM_NAME,
+        PARISH: selectedFeature.PARISH,
+        POST_CODES: selectedFeature.POST_CODES
+      });
+    }
+  }, [selectedFeature]);
+
+  const [formData, setFormData] = useState({
+    COMM_NAME: '',
+    PARISH: '',
+    POST_CODES: ''
+  });
+
+
   const [institutionParish, setInstitutionParish] = useState("");
   const [institutionCommunity, setInstitutionCommunity] = useState("");
   const [trainingInstructor1, setTrainingInstructor1] = useState("");
@@ -94,11 +130,14 @@ const PostParticipant = () => {
     setParticipantEmail('');
   };
 
-  const handleParticipantParishChange = (e) => {
-    setParticipantParish(e.target.value);
-    setParticipantCommunity(""); // Reset community when parish changes!
-    console.log("Selected participant parish:", e.target.value); // Debug log
+
+  const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES }) => {
+    setSelectedFeature({ COMM_NAME, PARISH, POST_CODES });
+    setShowMap(false); // Hide map
   };
+
+ 
+
   
   
   const handleInstitutionParishChange = (e) => {
@@ -215,7 +254,7 @@ const PostParticipant = () => {
   return (
     <div>
       
-
+     
       <form onSubmit={submitHandler}>
   <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
     <div style={{ width: '48%' }}>
@@ -375,49 +414,64 @@ const PostParticipant = () => {
     />
     </div>
 
-    <div style={{ display: 'flex', gap: '20px' }}>
-      <div style={{ width: '48%' }}>
-        <label>Street Number and Name:</label>
-        <input
-          type="text"
-          name="street_Num_Name"
-          value={street_Num_Name}
-          onChange={(e) => setStreet_Num_Name(e.target.value)}
-          placeholder="10 Main Street"
-        />
-      </div>
+
+            <button
+            type="button"
+            onClick={openMap}  // Trigger to show the map
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'green',
+              color: 'white',
+              marginLeft: '10px',
+            }}
+          >
+            Open Map
+          </button>
+          
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ width: '48%' }}>
+            <label>Street Number and Name:</label>
+            <input
+              type="text"
+              name="street_Num_Name"
+              value={street_Num_Name}
+              onChange={(e) => setStreet_Num_Name(e.target.value)}
+              placeholder="10 Main Street"
+            />
+        </div>
+      
 
       <div style={{ width: '48%' }}>
         <label>Locality:</label>
+
         <input
           type="text"
-          name="locality"
-          value={locality}
-          onChange={(e) => setLocality(e.target.value)}
-          placeholder="e.g. Kingston 10"
+          value={formData.POST_CODES}
+          onChange={(e) => setFormData({ ...formData, POST_CODES: e.target.value })}
+          placeholder="Postal Code"
         />
+
       </div>
     </div>
 
         <div style={{ width: '48%' }}>
         <label>Participant Parish:</label>
-        <ParticipantParishDropdown
-        //<ParishDropdown 
-        value={participantParish} 
-        onChange={handleParticipantParishChange}
-        style={errors.participantParish? { border: '1px solid red' } : {}}
-          />
+        <input
+          type="text"
+          value={formData.PARISH}
+          onChange={(e) => setFormData({ ...formData, PARISH: e.target.value })}
+          placeholder="Parish"
+        />
         </div>
         
         <div style={{ width: '48%' }}>
         <label>Participant Community:</label>
         
-        <ParticipantCommunityDropdown
-        //<CommunityDropdown 
-        participantParish={participantParish} 
-        value={participantCommunity} 
-        onChange={(e) => setParticipantCommunity(e.target.value)} 
-        style={errors.participantCommunity ? { border: '1px solid red' } : {}}
+        <input
+          type="text"
+          value={formData.COMM_NAME}
+          onChange={(e) => setFormData({ ...formData, COMM_NAME: e.target.value })}
+          placeholder="Community"
         />
         </div>
 
@@ -470,6 +524,8 @@ const PostParticipant = () => {
     </button>
   </div>
 </form>
+
+{showMap && <CommunityMap onFeatureSelect={handleFeatureSelect} />}
       
     </div>
   );
