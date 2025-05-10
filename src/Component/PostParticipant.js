@@ -22,42 +22,15 @@ const PostParticipant = () => {
 
   //const navigate = useNavigate();
 
-const [showMap1, setShowMap1] = useState(false);
-const [showMap2, setShowMap2] = useState(false);
-const [mapSource, setMapSource] = useState(null); // 'map1' or 'map2'
+
+const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
 
-const openMap1 = (e) => {
-  e.preventDefault();
-  setMapSource('map1');
-  setShowMap1(true);
-};
-
-
-const openMap2 = (e) => {
-  e.preventDefault();
-  setMapSource('map2');
-  setShowMap2(true);
-};
 
 
   const [submitterEmail, setSubmitterEmail] = useState("");
-
-  const [formData, setFormData] = useState({
-    institutionCommunity: '',
-    institutionParish: '',
-    participantCommunity: '',
-    participantParish: '',
-    locality: ''
-  });
-
-
   
-  const [selectedFeature, setSelectedFeature] = useState({
-    COMM_NAME: '',
-    PARISH: '',
-    POST_CODES: ''
-  });
+
 
 
   const [trainingDay1, setTrainingDay1] = useState(null);
@@ -135,42 +108,23 @@ const openMap2 = (e) => {
     setSubmitterEmail(user.email || "");
   }, []);
 
-  useEffect(() => {
-    if (showMap1 && selectedFeature.COMM_NAME) {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        institutionCommunity: selectedFeature.COMM_NAME,
-        institutionParish: selectedFeature.PARISH,
-      }));
-    }
-  }, [selectedFeature, showMap1]);
 
-  
-
-  useEffect(() => {
-    if (showMap2 && selectedFeature.COMM_NAME) {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        participantCommunity: selectedFeature.COMM_NAME,
-        participantParish: selectedFeature.PARISH,
-        locality: selectedFeature.POST_CODES,
-      }));
-    }
-  }, [selectedFeature, showMap2]);
 
   const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES }) => {
-    setSelectedFeature({ COMM_NAME, PARISH, POST_CODES });
+    if (activeMap === 'map1') {
+      setInstitutionParish(PARISH);
+      setInstitutionCommunity(COMM_NAME);
   
-    if (mapSource === 'map1') {
-      setShowMap1(false);
-    } else if (mapSource === 'map2') {
-      setShowMap2(false);
+    } else if (activeMap === 'map2') {
+      setParticipantParish(PARISH);
+      setParticipantCommunity(COMM_NAME);
+      setLocality(POST_CODES);
     }
   
-    setMapSource(null); // Reset source
+    setActiveMap(null); // Close map after selection
   };
   
-
+ 
   const handleInstitutionTypeChange = (e) => {
     setInstitutionType(e.target.value);
     setInstitutionName(""); // Reset community when parish changes!
@@ -190,8 +144,8 @@ const openMap2 = (e) => {
             if (!institutionType) newErrors.institutionType = true;
             if (!institutionName) newErrors.institutionName = true;
 
-           // if (!institutionParish) newErrors.institutionParish = true;
-           // if (!institutionCommunity) newErrors.institutionCommunity = true;
+           if (!institutionParish) newErrors.institutionParish = true;
+           if (!institutionCommunity) newErrors.institutionCommunity = true;
 
             if (!participantFirstName) newErrors.participantFirstName = true;
             if (!participantLastName) newErrors.participantLastName = true;
@@ -199,8 +153,8 @@ const openMap2 = (e) => {
             if (!dateOfBirth) newErrors.dateOfBirth = true;
             if (!position) newErrors.position = true;
 
-           // if (!participantParish) newErrors.participantParish = true;
-           // if (!participantCommunity) newErrors.participantCommunity = true;
+           if (!participantParish) newErrors.participantParish = true;
+           if (!participantCommunity) newErrors.participantCommunity = true;
 
             if (Object.keys(newErrors).length > 0) {
               setErrors(newErrors);
@@ -233,6 +187,7 @@ const openMap2 = (e) => {
     const day1 = trainingDay1 ? new Date(trainingDay1).toISOString().split("T")[0] : "";
     const day2 = trainingDay2 ? new Date(trainingDay2).toISOString().split("T")[0] : "";
 
+    
     const formData = {
       Training_Day_1: day1,
       Training_Day_2: day2,
@@ -343,7 +298,7 @@ const openMap2 = (e) => {
   </div>
     <button
       type="button"
-      onClick={openMap1}  // Trigger to show the map
+      onClick={() => setActiveMap('map1')}
       style={{
         padding: '10px 20px',
         backgroundColor: 'green',
@@ -356,22 +311,22 @@ const openMap2 = (e) => {
   <div style={{ display: 'flex', gap: '20px' }}>
     <div style={{ width: '48%' }}> 
     <label>Institution Parish:</label>
-        <input
-          type="text"
-          value={formData.institutionParish}
-          onChange={(e) => setFormData({ ...formData, institutionParish: e.target.value })}
-          placeholder="Parish"
-        />   
+    <input
+        type="text"
+        value={institutionParish}
+        onChange={(e) => setInstitutionParish(e.target.value)}
+        placeholder="Parish"
+      />
     </div>
 
     <div style={{ width: '48%' }}>
     <label>Institution Community:</label>
     <input
-          type="text"
-          value={formData.institutionCommunity}
-          onChange={(e) => setFormData({ ...formData, institutionCommunity: e.target.value })}
-          placeholder="Community"
-        />
+        type="text"
+        value={institutionCommunity}
+        onChange={(e) => setInstitutionCommunity(e.target.value)}
+        placeholder="Community"
+      />
     </div>
   </div>
 
@@ -451,9 +406,10 @@ const openMap2 = (e) => {
     />
     </div>
 
+
             <button
             type="button"
-            onClick={openMap2}  // Trigger to show the map
+            onClick={() => setActiveMap('map2')}
             style={{
               padding: '10px 20px',
               backgroundColor: 'green',
@@ -463,6 +419,7 @@ const openMap2 = (e) => {
           >
             Open Map
           </button>
+
           
         <div style={{ display: 'flex', gap: '20px' }}>
           <div style={{ width: '48%' }}>
@@ -479,35 +436,33 @@ const openMap2 = (e) => {
 
       <div style={{ width: '48%' }}>
         <label>Locality:</label>
-
         <input
-          type="text"
-          value={formData.locality}
-          onChange={(e) => setFormData({ ...formData, locality: e.target.value })}
-          placeholder="Postal Code"
-        />
-
+        type="text"
+        value={locality}
+        onChange={(e) => setLocality(e.target.value)}
+        placeholder="KGN 1"
+      />
       </div>
     </div>
 
         <div style={{ width: '48%' }}>
         <label>Participant Parish:</label>
         <input
-          type="text"
-          value={formData.participantParish}
-          onChange={(e) => setFormData({ ...formData, participantParish: e.target.value })}
-          placeholder="Parish"
-        />
+        type="text"
+        value={participantParish}
+        onChange={(e) => setParticipantParish(e.target.value)}
+        placeholder="Parish"
+      />
         </div>
         
         <div style={{ width: '48%' }}>
         <label>Participant Community:</label>      
         <input
-          type="text"
-          value={formData.participantCommunity}
-          onChange={(e) => setFormData({ ...formData, participantCommunity: e.target.value })}
-          placeholder="Community"
-        />
+        type="text"
+        value={participantCommunity}
+        onChange={(e) => setParticipantCommunity(e.target.value)}
+        placeholder="Community"
+      />
         </div>
 
     <div style={{ width: '48%' }}>
@@ -539,30 +494,55 @@ const openMap2 = (e) => {
 
   </div>
 
-  <div style={{ marginTop: '20px', textAlign: 'center' }}>
-    <button type="submit" style={{ padding: '10px 20px', backgroundColor: 'blue', color: 'white', border: 'none', cursor: 'pointer' }}>
-      Submit
-    </button>
-    <button
-      type="button"
-      onClick={clearForm}
-      style={{ padding: '10px 20px', backgroundColor: 'gray', color: 'white', border: 'none', cursor: 'pointer', marginLeft: '10px' }}
-    >
-      Clear Form
-    </button>
-    <button
-      type="button"
-      onClick={clearParticipant}
-      style={{ padding: '10px 20px', backgroundColor: 'orange', color: 'white', border: 'none', cursor: 'pointer', marginLeft: '10px' }}
-    >
-      Clear Participant
-    </button>
-  </div>
+  <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '15px' }}>
+  <button
+    type="submit"
+    style={{
+      padding: '10px 20px',
+      backgroundColor: 'blue',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    }}
+  >
+    Submit
+  </button>
+
+  <button
+    type="button"
+    onClick={clearForm}
+    style={{
+      padding: '10px 20px',
+      backgroundColor: 'gray',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    }}
+  >
+    Clear Form
+  </button>
+
+  <button
+    type="button"
+    onClick={clearParticipant}
+    style={{
+      padding: '10px 20px',
+      backgroundColor: 'orange',
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    }}
+  >
+    Clear Participant
+  </button>
+</div>
+
 </form>
 
-{showMap1 && <CommunityMap onFeatureSelect={handleFeatureSelect} />}
-{showMap2 && <CommunityMap onFeatureSelect={handleFeatureSelect} />}
-      
+{activeMap && (
+  <CommunityMap onFeatureSelect={handleFeatureSelect} />
+)}
+
     </div>
   );
 };
