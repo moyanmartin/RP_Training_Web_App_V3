@@ -43,6 +43,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
   const [institutionParish, setInstitutionParish] = useState("");
   const [institutionCommunity, setInstitutionCommunity] = useState("");
+  const [institutionX, setInstitutionX] = useState("");
+  const [institutionY, setInstitutionY] = useState("");
 
   const [trainingInstructor1, setTrainingInstructor1] = useState("");
   const [trainingInstructor2, setTrainingInstructor2] = useState("");
@@ -55,6 +57,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
   const [locality, setLocality] = useState("");
   const [participantParish, setParticipantParish] = useState("");
   const [participantCommunity, setParticipantCommunity] = useState("");
+  const [participantX, setParticipantX] = useState("");
+  const [participantY, setParticipantY] = useState("");
 
   const [participantTelephone, setParticipantTelephone] = useState("");
   const [participantEmail, setParticipantEmail] = useState("");
@@ -110,15 +114,20 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
 
 
-  const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES }) => {
+  const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES, LATITUDE, LONGITUDE }) => {
     if (activeMap === 'map1') {
       setInstitutionParish(PARISH);
       setInstitutionCommunity(COMM_NAME);
+      setInstitutionX(LONGITUDE);
+      setInstitutionY(LATITUDE);
+    
   
     } else if (activeMap === 'map2') {
       setParticipantParish(PARISH);
       setParticipantCommunity(COMM_NAME);
       setLocality(POST_CODES);
+      setParticipantX(LONGITUDE);
+      setParticipantY(LATITUDE);
     }
   
     setActiveMap(null); // Close map after selection
@@ -198,6 +207,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
       Institution_Parish: institutionParish,
       Institution_Community: institutionCommunity,
+      Institution_X: institutionX,
+      Institution_Y: institutionY,
 
       Training_Instructor_1: trainingInstructor1,
       Training_Instructor_2: trainingInstructor2,
@@ -210,6 +221,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
       Locality: locality,
       Participant_Parish: participantParish,
       Participant_Community: participantCommunity,
+      Participant_X: participantX,
+      Participant_Y: participantY,
 
       Participant_Position: position,
       Participant_Telephone: participantTelephone,

@@ -191,7 +191,9 @@ const CommunityMap = ({ onFeatureSelect }) => {
               onFeatureSelect({
                 COMM_NAME: selectedCommunity,
                 PARISH: selectedParish,
-                POST_CODES: selectedLocality
+                POST_CODES: selectedLocality,
+                LATITUDE: mapPoint.latitude,
+                LONGITUDE: mapPoint.longitude
               });
             }
           });
