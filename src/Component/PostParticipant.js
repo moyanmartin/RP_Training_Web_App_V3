@@ -25,14 +25,8 @@ const PostParticipant = () => {
 
 const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
-
-
-
   const [submitterEmail, setSubmitterEmail] = useState("");
   
-
-
-
   const [trainingDay1, setTrainingDay1] = useState(null);
   const [trainingDay2, setTrainingDay2] = useState(null);
   const [centreLocation, setCentreLocation] = useState("");
@@ -329,6 +323,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
         value={institutionParish}
         onChange={(e) => setInstitutionParish(e.target.value)}
         placeholder="Parish"
+        readOnly
       />
     </div>
 
@@ -339,6 +334,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
         value={institutionCommunity}
         onChange={(e) => setInstitutionCommunity(e.target.value)}
         placeholder="Community"
+        readOnly
       />
     </div>
   </div>
@@ -454,6 +450,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
         value={locality}
         onChange={(e) => setLocality(e.target.value)}
         placeholder="KGN 1"
+        readOnly
       />
       </div>
     </div>
@@ -465,6 +462,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
         value={participantParish}
         onChange={(e) => setParticipantParish(e.target.value)}
         placeholder="Parish"
+        readOnly
       />
         </div>
         
@@ -475,6 +473,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
         value={participantCommunity}
         onChange={(e) => setParticipantCommunity(e.target.value)}
         placeholder="Community"
+        readOnly
+
       />
         </div>
 
@@ -552,9 +552,9 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
 </form>
 
-{activeMap && (
-  <CommunityMap onFeatureSelect={handleFeatureSelect} />
-)}
+    {activeMap && (
+        <CommunityMap onFeatureSelect={handleFeatureSelect} />
+      )}
 
     </div>
   );

@@ -4,21 +4,20 @@ import axios from "axios";
 import { fetchParticipantById } from "./fetchParticipantByID";
 import { hostName } from './HostNames';
 import {  useNavigate } from "react-router-dom";
+import CommunityMap from "./CommunityMap";
 
 import {
   GenderDropdown,
   ModalityDropdown,
   RJCentreLocationDropdown,
   CertificationRadioButtons,
-  ParishDropdown,
   ParticipantPositionDropdown,
-  ParticipantCommunityDropdown,
-  ParticipantParishDropdown,
-  CommunityDropdown
 } from "./Dropdowns";
   
 
   const EditParticipant = () => {
+
+    const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
     const [submitterEmail, setSubmitterEmail] = useState("");
     
@@ -42,6 +41,8 @@ import {
       institutionName: "",
       institutionParish: "",
       institutionCommunity: "",
+      institutionX: "",
+      institutionY: "",
       trainingInstructor1: "",
       trainingInstructor2: "",      
       participantFirstName: "",
@@ -53,31 +54,39 @@ import {
       position: "",
       participantParish: "",
       participantCommunity: "",
+      participantX: "",
+      participantY: "",
       participantTelephone: "",
       participantEmail: "",
       submittedBy: "",
       certified: "no",
     });
   
-  
+    const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES, LATITUDE, LONGITUDE }) => {
+      if (activeMap === 'map1') {
 
-      const handleParticipantParishChange = (event) => {
         setParticipant({
           ...participant,
-          participantParish: event.target.value,
-          participantCommunity: "", // Reset community when parish changes
+          institutionParish: PARISH,
+          institutionCommunity: COMM_NAME, // Reset community when parish changes
+          institutionX: LONGITUDE,
+          institutionY: LATITUDE,
         });
-      };
-
-
-
-      const handleInstitutionParishChange = (e) => {
+       
+      } else if (activeMap === 'map2') {
         setParticipant({
           ...participant,
-          institutionParish: e.target.value,
-          institutionCommunity: "" // Reset community when parish changes!
+          participantParish: PARISH,
+          participantCommunity: COMM_NAME, // Reset community when parish changes
+          participantX: LONGITUDE,
+          participantY: LATITUDE,
         });
-      };
+      }
+    
+      setActiveMap(null); // Close map after selection
+    };
+
+    
       
 
  
@@ -98,6 +107,8 @@ import {
           institutionName: participantData.name_of_Institution || "",
           institutionParish: participantData.institution_Parish || "",
           institutionCommunity: participantData.institution_Community || "",
+          institutionX: participantData.institution_X || "",
+          institutionY: participantData.institution_Y || "",
           trainingInstructor1: participantData.training_Instructor_1 || "",
           trainingInstructor2: participantData.training_Instructor_2 || "",
           participantFirstName: participantData.participant_First_Name || "",
@@ -108,6 +119,8 @@ import {
           locality: participantData.locality || "",
           participantParish: participantData.participant_Parish || "",
           participantCommunity: participantData.participant_Community || "",
+          participantX: participantData.participant_X || "",
+          participantY: participantData.participant_Y || "",
           position: participantData.participant_Position || "",
           participantTelephone: participantData.participant_Telephone || "",
           participantEmail: participantData.participant_Email || "",
@@ -156,7 +169,9 @@ import {
         type_of_Institution: participant.institutionType,
         name_of_Institution: participant.institutionName,  // consistent camelCase
         institution_Parish: participant.institutionParish,
-        institution_Community: participant.institutionCommunity, 
+        institution_Community: participant.institutionCommunity,
+        institutionX: participant.institutionX,
+        institutionY: participant.institutionY,
         training_Instructor_1: participant.trainingInstructor1,
         training_Instructor_2: participant.trainingInstructor2,
         participant_First_Name: participant.participantFirstName,
@@ -167,6 +182,8 @@ import {
         locality: participant.locality,
         participant_Parish: participant.participantParish,
         participant_Community: participant.participantCommunity,
+        participantX: participant.participantX,
+        participantY: participant.participantY,
         participant_Position: participant.position,
         participant_Telephone: participant.participantTelephone,
         participant_Email: participant.participantEmail,
@@ -241,6 +258,7 @@ import {
           </div>
   
           <div style={{ width: '48%', marginTop: '20px' }}>
+          <label>Modality:</label>
             <ModalityDropdown
               value={participant.modality}
               onChange={(e) => setParticipant({ ...participant, modality: e.target.value })}
@@ -248,6 +266,7 @@ import {
           </div>
   
           <div style={{ width: '48%', marginTop: '20px' }}>
+          <label>RJ Centre Location:</label>
             <RJCentreLocationDropdown
               value={participant.centreLocation}
               onChange={(e) => setParticipant({ ...participant, centreLocation: e.target.value })}
@@ -276,26 +295,43 @@ import {
             />
           </div>
         </div>
+
+              <button
+            type="button"
+            onClick={() => setActiveMap('map1')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'green',
+              color: 'white',
+              marginLeft: '10px',
+            }}
+          >
+            Open Map
+          </button>
   
         <div style={{ display: 'flex', gap: '20px' }}>
           <div style={{ width: '48%' }}>
             <label>Parish of institution:</label>
-             <ParishDropdown 
-                  value={participant.institutionParishName} 
-                  onChange={handleInstitutionParishChange}
-                 // style={errors.participant.institutionParishName ? { border: '1px solid red' } : {}}
-                  />     
+            <input
+              type="text"
+              value={participant.institutionParish}
+              onChange={(e) => setParticipant({ ...participant, institutionParish: e.target.value })}
+              placeholder="Parish"
+              readOnly
+            />
+
+                
           </div>
   
           <div style={{ width: '48%' }}>
             <label>Community of institution:</label>
-             <CommunityDropdown 
-                parish={participant.institutionParish} 
-                value={participant.institutionCommunity} 
-                onChange={(e) => setParticipant({ ...participant, institutionCommunity: e.target.value })}
-                
-                //style={errors.institutionCommunity ? { border: '1px solid red' } : {}}
-                />
+            <input
+              type="text"
+              value={participant.institutionCommunity}
+              onChange={(e) => setParticipant({ ...participant, institutionCommunity: e.target.value })}
+              placeholder="Community"
+              readOnly
+            />
           </div>
         </div>
   
@@ -316,7 +352,7 @@ import {
               type="text"
               name="instructorName"
               value={participant.trainingInstructor2}
-              onChange={(e) => setParticipant({ ...participant, ptrainingInstructor2: e.target.value })}
+              onChange={(e) => setParticipant({ ...participant, trainingInstructor2: e.target.value })}
             />
           </div>
   
@@ -380,7 +416,20 @@ import {
                 onChange={(e) => setParticipant({ ...participant, street_Num_Name: e.target.value })}
               />
             </div>
-  
+            
+            <button
+            type="button"
+            onClick={() => setActiveMap('map2')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'green',
+              color: 'white',
+              marginLeft: '10px',
+            }}
+          >
+            Open Map
+          </button>
+
             <div style={{ width: '48%' }}>
               <label>Locality:</label>
               <input
@@ -394,25 +443,22 @@ import {
   
           <div style={{ width: '48%' }}>
             <label>Participant Parish:</label>
-
-             <ParticipantParishDropdown
-              //<ParishDropdown 
-              value={participant.participantParish} 
-              onChange={handleParticipantParishChange}
-              //style={errors.participant.participantParish? { border: '1px solid red' } : {}}
-                />
+            <input
+              type="text"
+              value={participant.participantParish}
+              onChange={(e) => setParticipant({ ...participant, participantParish: e.target.value })}
+              placeholder="Parish"
+              readOnly
+              />
               </div>
-       
-  
+
           <div style={{ width: '48%' }}>
-            <label>Participant Community:</label>
-             <ParticipantCommunityDropdown
-              //<CommunityDropdown 
-              participantParish={participant.participantParish} 
-              value={participant.participantCommunity} 
+           <input
+              type="text"
+              value={participant.participantCommunity}
               onChange={(e) => setParticipant({ ...participant, participantCommunity: e.target.value })}
-              
-             // style={errors.participant.participantCommunity ? { border: '1px solid red' } : {}}
+              placeholder="Parish"
+              readOnly
               />
           </div>
   
@@ -444,6 +490,11 @@ import {
   
         <button type="submit">Submit</button>
       </form>
+
+      {activeMap && (
+        <CommunityMap onFeatureSelect={handleFeatureSelect} />
+      )}
+
     </div>
   );
   
