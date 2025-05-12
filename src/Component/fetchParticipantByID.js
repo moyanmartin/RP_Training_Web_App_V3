@@ -17,7 +17,7 @@ export async function fetchParticipantById(participantID) {
       training_Day_1: participant.training_Day_1,
       training_Day_2: participant.training_Day_2,
       modality: participant.modality,
-      RJ_Centre: participant.rJ_Centre,
+      RJ_Centre: participant.RJ_Centre,
       type_of_Institution: participant.type_of_Institution,
       name_of_Institution: participant.name_of_Institution,
       institution_Parish: participant.institution_Parish,

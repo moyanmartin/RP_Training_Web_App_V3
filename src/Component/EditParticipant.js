@@ -36,7 +36,7 @@ import {
       trainingDay1: "",
       trainingDay2: "",
       modality: "",
-      centreLocation: "",
+      RJ_Centre: "",
       institutionType: "",
       institutionName: "",
       institutionParish: "",
@@ -78,6 +78,7 @@ import {
           ...participant,
           participantParish: PARISH,
           participantCommunity: COMM_NAME, // Reset community when parish changes
+          locality: POST_CODES,
           participantX: LONGITUDE,
           participantY: LATITUDE,
         });
@@ -102,7 +103,7 @@ import {
           trainingDay1: participantData.training_Day_1 || "",
           trainingDay2: participantData.training_Day_2 || "",
           modality: participantData.modality || "",
-          centreLocation: participantData.rJ_Centre || "",
+          RJ_Centre: participantData.RJ_Centre || "",
           institutionType: participantData.type_of_Institution || "",
           institutionName: participantData.name_of_Institution || "",
           institutionParish: participantData.institution_Parish || "",
@@ -162,35 +163,35 @@ import {
       : "";
 
       const formData = {
-        training_Day_1: trainingDay1,
-        training_Day_2: trainingDay2,
-        modality: participant.modality,
-        RJ_Centre: participant.centreLocation,
-        type_of_Institution: participant.institutionType,
-        name_of_Institution: participant.institutionName,  // consistent camelCase
-        institution_Parish: participant.institutionParish,
-        institution_Community: participant.institutionCommunity,
-        institutionX: participant.institutionX,
-        institutionY: participant.institutionY,
-        training_Instructor_1: participant.trainingInstructor1,
-        training_Instructor_2: participant.trainingInstructor2,
-        participant_First_Name: participant.participantFirstName,
-        participant_Last_Name: participant.participantLastName,
-        participant_Gender: participant.sex,
-        date_Of_Birth: dateOfBirth,  // use formatted date
-        street_Num_Name: participant.street_Num_Name,
-        locality: participant.locality,
-        participant_Parish: participant.participantParish,
-        participant_Community: participant.participantCommunity,
-        participantX: participant.participantX,
-        participantY: participant.participantY,
-        participant_Position: participant.position,
-        participant_Telephone: participant.participantTelephone,
-        participant_Email: participant.participantEmail,
-        participants_ID: participant.participantID,
-        certified: participant.certified,
-        submitted_By: submitterEmail,
-        last_Edit: new Date().toISOString(),
+        Training_Day_1: trainingDay1,
+        Training_Day_2: trainingDay2,
+        Modality: participant.modality,
+        RJ_Centre: participant.RJ_Centre,
+        Type_of_Institution: participant.institutionType,
+        Name_of_Institution: participant.institutionName,  // consistent camelCase
+        Institution_Parish: participant.institutionParish,
+        Institution_Community: participant.institutionCommunity,
+        Institution_X: participant.institutionX,
+        Institution_Y: participant.institutionY,
+        Training_Instructor_1: participant.trainingInstructor1,
+        Training_Instructor_2: participant.trainingInstructor2,
+        Participant_First_Name: participant.participantFirstName,
+        Participant_Last_Name: participant.participantLastName,
+        Participant_Gender: participant.sex,
+        Date_Of_Birth: dateOfBirth,  // use formatted date
+        Street_Num_Name: participant.street_Num_Name,
+        Locality: participant.locality,
+        Participant_Parish: participant.participantParish,
+        Participant_Community: participant.participantCommunity,
+        Participant_X: participant.participantX,
+        Participant_Y: participant.participantY,
+        Participant_Position: participant.position,
+        Participant_Telephone: participant.participantTelephone,
+        Participant_Email: participant.participantEmail,
+        Participants_ID: participant.participantID,
+        Certified: participant.certified,
+        Submitted_By: submitterEmail,
+        Last_Edit: new Date().toISOString(),
       };
       
 
@@ -267,9 +268,10 @@ import {
   
           <div style={{ width: '48%', marginTop: '20px' }}>
           <label>RJ Centre Location:</label>
-            <RJCentreLocationDropdown
-              value={participant.centreLocation}
-              onChange={(e) => setParticipant({ ...participant, centreLocation: e.target.value })}
+          <RJCentreLocationDropdown
+              value={participant.RJ_Centre}
+              onChange={(e) => setParticipant({ ...participant, RJ_Centre: e.target.value })
+              }
             />
           </div>
         </div>
@@ -379,13 +381,14 @@ import {
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
           <div style={{ width: '48%' }}>
+          <label>Gender:</label>
             <GenderDropdown
               value={participant.sex}
               onChange={(e) => setParticipant({ ...participant, sex: e.target.value })}
             />
           </div>
   
-          <div style={{ width: '45%' }}>
+          <div style={{ width: '48%' }}>
             <label>Date of birth:</label>
             <input
               type="date"
@@ -395,7 +398,7 @@ import {
             />
           </div>
           </div>    
-          <div style={{ width: '45%' }}>
+          <div style={{ width: '48%' }}>
             <label>Position:</label>
             <ParticipantPositionDropdown 
                 institution={participant.institutionType} 
@@ -405,6 +408,19 @@ import {
                // style={errors.participant.position? { border: '1px solid red' } : {}}
                 />
           </div>
+
+          <button
+            type="button"
+            onClick={() => setActiveMap('map2')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'green',
+              color: 'white',
+              marginLeft: '10px',
+            }}
+          >
+            Open Map
+          </button>
   
           <div style={{ display: 'flex', gap: '20px' }}>
             <div style={{ width: '48%' }}>
@@ -417,26 +433,16 @@ import {
               />
             </div>
             
-            <button
-            type="button"
-            onClick={() => setActiveMap('map2')}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: 'green',
-              color: 'white',
-              marginLeft: '10px',
-            }}
-          >
-            Open Map
-          </button>
+           
 
             <div style={{ width: '48%' }}>
               <label>Locality:</label>
               <input
                 type="text"
-                name="locality"
                 value={participant.locality}
                 onChange={(e) => setParticipant({ ...participant, locality: e.target.value })}
+                placeholder="e.g KGN 1"
+                readOnly
               />
             </div>
           </div>
@@ -453,6 +459,7 @@ import {
               </div>
 
           <div style={{ width: '48%' }}>
+          <label>Participant Community:</label>
            <input
               type="text"
               value={participant.participantCommunity}
@@ -481,7 +488,8 @@ import {
               onChange={(e) => setParticipant({ ...participant, participantEmail: e.target.value })}
             />
           </div>
-  
+          
+          <label>Certified:</label>
           <CertificationRadioButtons
             value={participant.certified}
             onChange={(e) => setParticipant({ ...participant, certified: e.target.value })}
