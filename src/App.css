@@ -41,3 +41,9 @@ select:empty {
   color: gray;
   font-style: italic;
 }
+
+.select-placeholder {
+  color: gray;
+  font-style: italic;
+}
+

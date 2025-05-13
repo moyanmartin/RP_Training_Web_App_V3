@@ -138,8 +138,22 @@ import {
     fetchParticipant();
   }, [id, submitterEmail]); // Add submitterEmail here
 
+  const [errors, setErrors] = useState({});
+
   const submitHandler = async (event) => {
     event.preventDefault();
+
+    
+
+      const newErrors = {};
+      if (!participant.RJ_Centre) newErrors.RJ_Centre = true;
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        const firstMissing = Object.keys(newErrors)[0];
+        alert(`Please fill out the ${firstMissing} field.`);
+        return;
+      }
 
    
     const isValidDate = (date) => !isNaN(new Date(date).getTime());
@@ -194,9 +208,6 @@ import {
         Last_Edit: new Date().toISOString(),
       };
       
-
-    console.log("Submitting Data:", JSON.stringify(formData, null, 2));
-
     
     try {
       // Correct endpoint and method (PUT request)
@@ -228,76 +239,88 @@ import {
 
   return (
     <div>
+
+        <div style={{ position: "fixed", top: "20px", left: "20px" }}>
+              <button
+                onClick={() => navigate("/home")}
+                style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "#1976d2",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  fontSize: "16px"
+                }}
+              >
+                Home
+              </button>
+            </div>
+
+
+
       <form onSubmit={submitHandler}>
         <label>Participant's ID Number:</label>
         <input
           type="text"
           name="participantID"
-          value={participant.participantID}
+          value={participant.participantID} style={{color: 'gray' }}
           readOnly
         />
   
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-          <div style={{ width: '48%' }}>
+          
             <label>Training Day 1:</label>
             <input
               type="date"
               name="trainingDay1"
-              value={participant.trainingDay1}
+              value={participant.trainingDay1} style={{color: 'gray' }}
               readOnly
             />
-          </div>
-  
-          <div style={{ width: '48%' }}>
+          
             <label>Training Day 2:</label>
             <input
               type="date"
               name="trainingDay2"
-              value={participant.trainingDay2}
+              value={participant.trainingDay2} style={{color: 'gray' }}
               readOnly
             />
-          </div>
   
-          <div style={{ width: '48%', marginTop: '20px' }}>
+          
           <label>Modality:</label>
             <ModalityDropdown
               value={participant.modality}
               onChange={(e) => setParticipant({ ...participant, modality: e.target.value })}
             />
-          </div>
   
-          <div style={{ width: '48%', marginTop: '20px' }}>
-          <label>RJ Centre Location:</label>
-          <RJCentreLocationDropdown
+    
+              <label>RJ Centre Location:</label>
+            <RJCentreLocationDropdown
               value={participant.RJ_Centre}
-              onChange={(e) => setParticipant({ ...participant, RJ_Centre: e.target.value })
+              onChange={(e) =>
+                setParticipant({ ...participant, RJ_Centre: e.target.value })
               }
+              style={errors.RJ_Centre ? { border: '1px solid red' } : {}}
             />
-          </div>
-        </div>
+
+          
   
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <div style={{ width: '48%' }}>
+      
             <label>Type of Institution:</label>
             <input
               type="text"
               name="typeOfInstitution"
-              value={participant.institutionType}
+              value={participant.institutionType} style={{color: 'gray' }}
               readOnly
             />
-          </div>
-  
-          <div style={{ width: '48%' }}>
+         
             <label>Name of Institution:</label>
             <input
               type="text"
               name="nameOfInstitution"
-              value={participant.institutionName}
+              value={participant.institutionName} style={{color: 'gray' }}
               readOnly
             />
-          </div>
-        </div>
-
+        
               <button
             type="button"
             onClick={() => setActiveMap('map1')}
@@ -311,34 +334,23 @@ import {
             Open Map
           </button>
   
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <div style={{ width: '48%' }}>
+        
             <label>Parish of institution:</label>
             <input
               type="text"
               value={participant.institutionParish}
               onChange={(e) => setParticipant({ ...participant, institutionParish: e.target.value })}
-              placeholder="Parish"
               readOnly
             />
 
-                
-          </div>
-  
-          <div style={{ width: '48%' }}>
             <label>Community of institution:</label>
             <input
               type="text"
               value={participant.institutionCommunity}
               onChange={(e) => setParticipant({ ...participant, institutionCommunity: e.target.value })}
-              placeholder="Community"
               readOnly
             />
-          </div>
-        </div>
-  
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-          <div style={{ width: '48%' }}>
+         
             <label>Training instructor1:</label>
             <input
               type="text"
@@ -346,9 +358,7 @@ import {
               value={participant.trainingInstructor1}
               onChange={(e) => setParticipant({ ...participant, trainingInstructor1: e.target.value })}
             />
-          </div>
 
-          <div style={{ width: '48%' }}>
             <label>Training instructor2:</label>
             <input
               type="text"
@@ -356,10 +366,7 @@ import {
               value={participant.trainingInstructor2}
               onChange={(e) => setParticipant({ ...participant, trainingInstructor2: e.target.value })}
             />
-          </div>
-  
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <div style={{ width: '48%' }}>
+         
               <label>Participant's First Name:</label>
               <input
                 type="text"
@@ -367,9 +374,7 @@ import {
                 value={participant.participantFirstName}
                 onChange={(e) => setParticipant({ ...participant, participantFirstName: e.target.value })}
               />
-            </div>
-  
-            <div style={{ width: '48%' }}>
+          
               <label>Participant's Last Name:</label>
               <input
                 type="text"
@@ -377,37 +382,28 @@ import {
                 value={participant.participantLastName}
                 onChange={(e) => setParticipant({ ...participant, participantLastName: e.target.value })}
               />
-            </div>
-          </div>
-          <div style={{ display: 'flex', gap: '20px' }}>
-          <div style={{ width: '48%' }}>
+          
           <label>Gender:</label>
             <GenderDropdown
               value={participant.sex}
               onChange={(e) => setParticipant({ ...participant, sex: e.target.value })}
             />
-          </div>
-  
-          <div style={{ width: '48%' }}>
+        
             <label>Date of birth:</label>
             <input
               type="date"
               name="dateOfBirth"
-              value={participant.dateOfBirth}
+              value={participant.dateOfBirth} style={{color: 'gray' }}
               readOnly
             />
-          </div>
-          </div>    
-          <div style={{ width: '48%' }}>
+       
             <label>Position:</label>
             <ParticipantPositionDropdown 
                 institution={participant.institutionType} 
                 value={participant.position} 
-             
                 onChange={(e) => setParticipant({ ...participant, position: e.target.value })}
-               // style={errors.participant.position? { border: '1px solid red' } : {}}
+
                 />
-          </div>
 
           <button
             type="button"
@@ -422,8 +418,6 @@ import {
             Open Map
           </button>
   
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <div style={{ width: '48%' }}>
               <label>Street number and name:</label>
               <input
                 type="text"
@@ -431,55 +425,44 @@ import {
                 value={participant.street_Num_Name}
                 onChange={(e) => setParticipant({ ...participant, street_Num_Name: e.target.value })}
               />
-            </div>
-            
-           
-
-            <div style={{ width: '48%' }}>
+          
+ 
               <label>Locality:</label>
               <input
                 type="text"
                 value={participant.locality}
                 onChange={(e) => setParticipant({ ...participant, locality: e.target.value })}
-                placeholder="e.g KGN 1"
+                placeholder="e.g KGN 1" style={{ fontStyle: 'italic', color: 'gray' }}
                 readOnly
               />
-            </div>
-          </div>
-  
-          <div style={{ width: '48%' }}>
+       
             <label>Participant Parish:</label>
             <input
               type="text"
               value={participant.participantParish}
               onChange={(e) => setParticipant({ ...participant, participantParish: e.target.value })}
-              placeholder="Parish"
               readOnly
               />
-              </div>
+             
 
-          <div style={{ width: '48%' }}>
+        
           <label>Participant Community:</label>
            <input
               type="text"
               value={participant.participantCommunity}
               onChange={(e) => setParticipant({ ...participant, participantCommunity: e.target.value })}
-              placeholder="Parish"
               readOnly
               />
-          </div>
-  
-          <div style={{ width: '48%' }}>
+        
             <label>Participant's Telephone:</label>
             <input
               type="text"
               name="participantTelephone"
               value={participant.participantTelephone}
               onChange={(e) => setParticipant({ ...participant, participantTelephone: e.target.value })}
+              placeholder="8765550000" style={{ fontStyle: 'italic', color: 'gray' }}
             />
-          </div>
-  
-          <div style={{ width: '48%' }}>
+         
             <label>Participant's Email:</label>
             <input
               type="text"
@@ -487,13 +470,16 @@ import {
               value={participant.participantEmail}
               onChange={(e) => setParticipant({ ...participant, participantEmail: e.target.value })}
             />
-          </div>
-          
+       
+
+       <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-start', gap: '15px' }}>   
           <label>Certified:</label>
           <CertificationRadioButtons
             value={participant.certified}
             onChange={(e) => setParticipant({ ...participant, certified: e.target.value })}
           />
+        </div>
+
         </div>
   
         <button type="submit">Submit</button>

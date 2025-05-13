@@ -47,7 +47,11 @@ const DeleteParticipantRequested = () => {
       // Optional: Navigate after a delay
       setTimeout(() => {
         navigate("/pendingRequests");
+        navigate('/search');
       }, 2000); // Navigate after 2 seconds (or based on your preference)
+      
+
+
 
     } catch (err) {
       setError("Failed to delete the participant or update the request.");

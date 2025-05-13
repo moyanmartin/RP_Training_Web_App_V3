@@ -1,4 +1,4 @@
-// In components/Dropdowns.js
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { hostName } from './HostNames';
@@ -7,7 +7,7 @@ import '../App.css';
 
 
 
-export function ParishDropdown({ value, onChange }) {
+export function ParishDropdown({ value, onChange, style }) {
   const [parishes, setParishes] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,12 @@ export function ParishDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select  
+    value={value || ""}
+    onChange={onChange}
+    style={style}
+    className={!value ? "select-placeholder" : ""}
+>
       <option value="">-- Select parish --</option>
       {parishes.map((parish, index) => (
         <option key={index} value={parish}>{parish}</option>
@@ -30,30 +35,9 @@ export function ParishDropdown({ value, onChange }) {
   );
 }
 
-export function ParticipantParishDropdown({ value, onChange }) {
-  const [participantParishes, setParticipantParishes] = useState([]);
 
-  useEffect(() => {
-    axios.get(`https://${hostName}/api/DropDowns/parishes`)
-      .then(response => {
-        setParticipantParishes(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching parishes:", error);
-      });
-  }, []);
 
-  return (
-    <select value={value} onChange={onChange}>
-      <option value="">-- Select parish --</option>
-      {participantParishes.map((participantParish, index) => (
-        <option key={index} value={participantParish}>{participantParish}</option>
-      ))}
-    </select>
-  );
-}
-
-export function CommunityDropdown({ parish, value, onChange }) {
+export function CommunityDropdown({ parish, value, onChange, style }) {
   const [communities, setCommunities] = useState([]);
 
   useEffect(() => {
@@ -83,6 +67,7 @@ export function CommunityDropdown({ parish, value, onChange }) {
         list="community-options"
         value={value}
         onChange={onChange}
+        style={style}
         disabled={!parish}
         placeholder={parish ? "Type or select a community" : "Select parish first"}
       />
@@ -95,54 +80,8 @@ export function CommunityDropdown({ parish, value, onChange }) {
   );
 }
 
-export function ParticipantCommunityDropdown({ participantParish, value, onChange }) {
-  const [participantCommunities, setParticipantCommunities] = useState([]);
 
-  useEffect(() => {
-    console.log("Fetching communities for parish:", participantParish);
-  
-    if (participantParish) {
-      axios.get(`https://${hostName}/api/DropDowns/communities?parish=${encodeURIComponent(participantParish)}`)
-        .then(response => {
-          console.log("Received communities for", participantParish, ":", response.data); // Debug log for API response
-          setParticipantCommunities(response.data);
-        })
-        .catch(error => {
-          console.error("Error fetching communities:", error);
-          setParticipantCommunities([]); // Clear communities on error
-        });
-    } else {
-      setParticipantCommunities([]); // Clear communities if no parish selected
-    }
-  }, [participantParish]); // Only dependency is participantParish
-  
-  
-
-  console.log("Rendering CommunityDropdown for parish:", participantParish); // Debug log for re-rendering
-
-  return (
-    <div>
-      <input
-        list="participantCommunity-options"
-        value={value}
-        onChange={onChange}
-        disabled={!participantParish}
-        placeholder={participantParish ? "Type or select a community" : "Select parish first"}
-        
-      />
-      <datalist id="participantCommunity-options">
-        {participantCommunities.map((participantCommunity, index) => (
-          <option key={index} value={participantCommunity} />
-        ))}
-      </datalist>
-    </div>
-  );
-}
-
-
-
-
-export function TypeOfInstitutionDropdown({ value, onChange }) {
+export function TypeOfInstitutionDropdown({ value, onChange, style }) {
   const [institutions, setInstitutions] = useState([]);
 
   useEffect(() => {
@@ -155,17 +94,27 @@ export function TypeOfInstitutionDropdown({ value, onChange }) {
       });
   }, []);
 
-  return (
-    <select value={value} onChange={onChange}>
-      <option value="">-- Select type of institution --</option>
-      {institutions.map((institution, index) => (
-        <option key={index} value={institution}>{institution}</option>
-      ))}
-    </select>
-  );
+      return (
+        <select
+          value={value || ""}
+          onChange={onChange}
+          style={style}
+          className={!value ? "select-placeholder" : ""}
+        >
+          <option value="" disabled>
+            -- Select type of institution --
+          </option>
+          {institutions.map((institution, index) => (
+            <option key={index} value={institution}>{institution}</option>
+          ))}
+        </select>
+
+      
+
+      );
 }
 
-export function InstitutionNameDropdown({ institution, value, onChange }) {
+export function InstitutionNameDropdown({ institution, value, onChange, style }) {
   const [institutionNames, setInstitutionNames] = useState([]);
 
   useEffect(() => {
@@ -189,6 +138,7 @@ export function InstitutionNameDropdown({ institution, value, onChange }) {
         list="institutionName-options"
         value={value}
         onChange={onChange}
+        style={style}
         disabled={!institution}
         placeholder={institution ? "Type or select institution name" : "Select institution first"}
       />
@@ -201,7 +151,7 @@ export function InstitutionNameDropdown({ institution, value, onChange }) {
   );
 }
 
-export function ParticipantPositionDropdown({ institution, value, onChange }) {
+export function ParticipantPositionDropdown({ institution, value, onChange, style }) {
   const [participantPositions, setParticipantPositions] = useState([]);
 
   useEffect(() => {
@@ -225,6 +175,7 @@ export function ParticipantPositionDropdown({ institution, value, onChange }) {
         list="participantPosition-options"
         value={value}
         onChange={onChange}
+        style={style}
         disabled={!institution}
         placeholder={institution ? "Type or select position" : "Select institution first"}
       />
@@ -238,7 +189,7 @@ export function ParticipantPositionDropdown({ institution, value, onChange }) {
 }
 
 
-export function GenderDropdown({ value, onChange }) {
+export function GenderDropdown({ value, onChange, style }) {
   const [genders, setGenders] = useState([]);
 
   useEffect(() => {
@@ -252,7 +203,12 @@ export function GenderDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select 
+       value={value || ""}
+          onChange={onChange}
+          style={style}
+          className={!value ? "select-placeholder" : ""}
+      >
       <option value="">-- Select sex --</option>
       {genders.map((gender, index) => (
         <option key={index} value={gender}>{gender}</option>
@@ -262,7 +218,8 @@ export function GenderDropdown({ value, onChange }) {
 }
 
 
-export function ModalityDropdown({ value, onChange }) {
+
+export function ModalityDropdown({ value, onChange, style }) {
   const [modalities, setModalities] = useState([]);
 
   useEffect(() => {
@@ -276,7 +233,11 @@ export function ModalityDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select  value={value || ""}
+    onChange={onChange}
+    style={style}
+    className={!value ? "select-placeholder" : ""}
+>
       <option value="">-- Select modality --</option>
       {modalities.map((modality, index) => (
         <option key={index} value={modality}>{modality}</option>
@@ -286,7 +247,7 @@ export function ModalityDropdown({ value, onChange }) {
 }
 
 
-export function RJCentreLocationDropdown({ value, onChange }) {
+export function RJCentreLocationDropdown({ value, onChange, style }) {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
@@ -300,7 +261,12 @@ export function RJCentreLocationDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select  
+    value={value || ""}
+    onChange={onChange}
+    style={style}
+    className={!value ? "select-placeholder" : ""}
+>
       <option value="">-- Select RJ Centre Location --</option>
       {locations.map((location, index) => (
         <option key={index} value={location}>{location}</option>
@@ -309,7 +275,9 @@ export function RJCentreLocationDropdown({ value, onChange }) {
   );
 }
 
-export function TypeOfUserDropdown({ value, onChange }) {
+
+
+export function TypeOfUserDropdown({ value, onChange, style}) {
   const [typeOfUsers, setTypeOfUsers] = useState([]);
 
   useEffect(() => {
@@ -323,7 +291,12 @@ export function TypeOfUserDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select  
+    value={value || ""}
+    onChange={onChange}
+    style={style}
+    className={!value ? "select-placeholder" : ""}
+>
       <option value="">-- Select type of user --</option>
       {typeOfUsers.map((typeOfUser, index) => (
         <option key={index} value={typeOfUser}>{typeOfUser}</option>
@@ -332,7 +305,7 @@ export function TypeOfUserDropdown({ value, onChange }) {
   );
 }
 
-export function TypeOfRequestDropdown({ value, onChange }) {
+export function TypeOfRequestDropdown({ value, onChange, style }) {
   const [typeOfRequests, setTypeOfRequests] = useState([]);
 
   useEffect(() => {
@@ -346,7 +319,12 @@ export function TypeOfRequestDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select  
+    value={value || ""}
+    onChange={onChange}
+    style={style}
+    className={!value ? "select-placeholder" : ""}
+>
       <option value="">-- Select type of request --</option>
       {typeOfRequests.map((typeOfRequest, index) => (
         <option key={index} value={typeOfRequest}>{typeOfRequest}</option>
@@ -355,7 +333,7 @@ export function TypeOfRequestDropdown({ value, onChange }) {
   );
 }
 
-export function StaffPositionDropdown({ value, onChange }) {
+export function StaffPositionDropdown({ value, onChange, style }) {
   const [staffPositions, setStaffPositions] = useState([]);
 
   useEffect(() => {
@@ -369,7 +347,12 @@ export function StaffPositionDropdown({ value, onChange }) {
   }, []);
 
   return (
-    <select value={value} onChange={onChange}>
+    <select  
+    value={value || ""}
+    onChange={onChange}
+    style={style}
+    className={!value ? "select-placeholder" : ""}
+>
       <option value="">-- Select position --</option>
       {staffPositions.map((staffPosition, index) => (
         <option key={index} value={staffPosition}>{staffPosition}</option>

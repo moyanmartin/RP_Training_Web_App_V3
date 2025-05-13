@@ -176,6 +176,7 @@ const SearchTraining = () => {
                 <th style={{ border: "1px solid black", padding: "8px" }}>Name</th>
                 <th style={{ border: "1px solid black", padding: "8px" }}>Date of Birth</th>
                 <th style={{ border: "1px solid black", padding: "8px" }}>Telephone</th>
+                <th style={{ border: "1px solid black", padding: "8px" }}>Certified</th>
               </tr>
             </thead>
             <tbody>
@@ -203,6 +204,11 @@ const SearchTraining = () => {
                     <td style={{ border: "1px solid black", padding: "8px" }}>
                       {participant.participant_Telephone || "Not Available"}
                     </td>
+
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {participant.certified || "Not Available"}
+                    </td>
+
                   </tr>
                 );
               })}

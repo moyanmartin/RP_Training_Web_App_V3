@@ -329,7 +329,6 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             type="text"
             value={institutionParish}
             onChange={(e) => setInstitutionParish(e.target.value)}
-            placeholder="Parish"
             readOnly
           />
   
@@ -338,7 +337,6 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             type="text"
             value={institutionCommunity}
             onChange={(e) => setInstitutionCommunity(e.target.value)}
-            placeholder="Community"
             readOnly
           />
   
@@ -420,7 +418,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             name="street_Num_Name"
             value={street_Num_Name}
             onChange={(e) => setStreet_Num_Name(e.target.value)}
-            placeholder="eg. 10 Main Street"
+            placeholder="eg. 10 Main Street" style={{ fontStyle: 'italic', color: 'gray' }}
           />
   
           <label>Locality:</label>
@@ -428,7 +426,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             type="text"
             value={locality}
             onChange={(e) => setLocality(e.target.value)}
-            placeholder="eg. KGN 1"
+            placeholder="eg. KGN 1" style={{ fontStyle: 'italic', color: 'gray' }}
             readOnly
           />
   
@@ -437,7 +435,6 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             type="text"
             value={participantParish}
             onChange={(e) => setParticipantParish(e.target.value)}
-            placeholder="Parish"
             readOnly
           />
   
@@ -446,7 +443,6 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             type="text"
             value={participantCommunity}
             onChange={(e) => setParticipantCommunity(e.target.value)}
-            placeholder="Community"
             readOnly
           />
   
@@ -456,6 +452,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
             name="participantTelephone"
             value={participantTelephone}
             onChange={(e) => setParticipantTelephone(e.target.value)}
+            placeholder="8765550000" style={{ fontStyle: 'italic', color: 'gray' }}
           />
   
           <label>Participant's Email:</label>

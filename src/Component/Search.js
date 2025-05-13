@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { hostName } from './HostNames';
 
-//const hostName = process.env.REACT_APP_HOST_NAME;
 
 const Search = () => {
   const navigate = useNavigate();
@@ -48,6 +47,10 @@ const Search = () => {
       }
 
       setSearchResults(response.data);
+
+      console.log("Search API returned:", response.data);
+
+
       setSelectedParticipant(null);
     } catch (error) {
       console.error("Error fetching participants:", error);
@@ -176,12 +179,16 @@ const Search = () => {
                 <th style={{ border: "1px solid black", padding: "8px" }}>Name</th>
                 <th style={{ border: "1px solid black", padding: "8px" }}>Date of Birth</th>
                 <th style={{ border: "1px solid black", padding: "8px" }}>Telephone</th>
+                <th style={{ border: "1px solid black", padding: "8px" }}>Certified</th>
               </tr>
             </thead>
             <tbody>
               {searchResults.map((participant, index) => {
                 const isSelected = selectedParticipant &&
                                    selectedParticipant.participants_ID === participant.participants_ID;
+                
+
+                                  // console.log("Participant object:", participant);
 
                 return (
                   <tr
@@ -195,14 +202,21 @@ const Search = () => {
                     <td style={{ border: "1px solid black", padding: "8px" }}>
                       {participant.participant_First_Name} {participant.participant_Last_Name}
                     </td>
+
                     <td style={{ border: "1px solid black", padding: "8px" }}>
                       {participant.date_Of_Birth
                         ? new Date(participant.date_Of_Birth).toLocaleDateString()
                         : "Not Available"}
                     </td>
+
                     <td style={{ border: "1px solid black", padding: "8px" }}>
                       {participant.participant_Telephone || "Not Available"}
                     </td>
+
+                      <td style={{ border: "1px solid black", padding: "8px" }}>
+                        {participant.certified || "Not Available"}
+                      </td>
+
                   </tr>
                 );
               })}

@@ -35,6 +35,7 @@ const DenyDeleteRequest = () => {
       console.log("Request submitted successfully");
       alert("Your request was submitted successfully!");
       navigate("/pending-requests"); // redirect after successful submit
+      navigate('/home');
     } catch (error) {
       console.error("Error submitting request:", error);
       alert("There was an error submitting your request.");
