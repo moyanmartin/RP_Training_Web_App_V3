@@ -39,68 +39,68 @@ const CommunityMap = ({ onFeatureSelect }) => {
 
           const layers = {
             community: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/4",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/4",
               outFields: ["*"],
               visible: true,
               minScale: 300000,
               maxScale: 0
             }),
             parish: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/10",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/10",
               outFields: ["*"],
               visible: true
             }),
             postal: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/9",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/9",
               outFields: ["*"],
               visible: true,
               minScale: 200000,
               maxScale: 0
             }),
             hospital: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/1",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/1",
               outFields: ["*"],
               visible: true,
               minScale: 200000,
               maxScale: 0
             }),
             policeStation: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/2",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/2",
               outFields: ["*"],
               visible: true,
               minScale: 200000,
               maxScale: 0
             }),
             postalOfficeAgencies: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/3",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/3",
               outFields: ["*"],
               visible: true,
               minScale: 200000,
               maxScale: 0
             }),
             school: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/0",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/0",
               outFields: ["*"],
               visible: true,
               minScale: 100000,
               maxScale: 0
             }),
             policeDivision: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/5",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/5",
               outFields: ["*"],
               visible: true,
               minScale: 100000,
               maxScale: 0
             }),
             road: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/6",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/6",
               outFields: ["*"],
               visible: true,
               minScale: 200000,
               maxScale: 0
             }),
             electoralDivision: new FeatureLayer({
-              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984/FeatureServer/7",
+              url: "https://services6.arcgis.com/3R3y1KXaPJ9BFnsU/arcgis/rest/services/Location_Map_WGS_1984_Edited2/FeatureServer/7",
               outFields: ["*"],
               visible: true,
               minScale: 100000,
@@ -109,16 +109,18 @@ const CommunityMap = ({ onFeatureSelect }) => {
           };
 
           map.addMany([
+                   
+            layers.postal,
+            layers.policeDivision,
+            layers.electoralDivision,                 
+            layers.road,
+            layers.community,
+            layers.parish, 
             layers.hospital,
             layers.policeStation,
             layers.postalOfficeAgencies,
-            layers.school,
-            layers.road,                  
-            layers.postal,
-            layers.policeDivision,
-            layers.electoralDivision,
-            layers.community,
-            layers.parish
+            layers.school       
+                       
           ]);
 
           localView = new MapView({
