@@ -80,7 +80,6 @@ const Home = () => {
           </Link>
         </div>
 
-
         <div>
           <Link to="/individalRequests">
             <button className="styled-button">View my requests</button>
@@ -130,3 +129,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
