@@ -5,7 +5,7 @@ import { hostName } from './HostNames';
 
 //const hostName = process.env.REACT_APP_HOST_NAME;
 
-const Search = () => {
+const SearchTraining = () => {
   const navigate = useNavigate();
   const [ParticipantID, setParticipantID] = React.useState("");
   const [TrainingNum, setTrainingNum] = React.useState("");
@@ -208,13 +208,14 @@ const Search = () => {
               })}
             </tbody>
           </table>
-
+     
           {selectedParticipant && (
   <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
     <button
-      onClick={() =>
-        navigate(`/edit/${selectedParticipant.participants_ID}`)
-      }
+      onClick={() => {
+        console.log(selectedParticipant.training_Number);
+        navigate(`/certifyCohort/${selectedParticipant.training_Number}`);
+      }}
       style={{
         backgroundColor: "#4CAF50",
         color: "white",
@@ -225,67 +226,11 @@ const Search = () => {
         fontSize: "14px"
       }}
     >
-      Edit Participant
+      Certify Cohort
     </button>
-
-    <button
-      onClick={() =>
-        navigate(`/certifyParticipant/${selectedParticipant.participants_ID}`)
-      }
-      style={{
-        backgroundColor: "#4CAF50",
-        color: "white",
-        padding: "10px 20px",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-        fontSize: "14px"
-      }}
-    >
-      Certify Participant
-    </button>
-
-    <button
-      onClick={async () => {
-        try {
-          
-          const checkResponse = await axios.get(
-
-            `https://${hostName}/api/Request/Exists`,
-            {
-              params: {
-                participantId: selectedParticipant.participants_ID,
-              
-              },
-            }
-          );
-
-          if (checkResponse.data.exists) {
-            alert("A delete request has already been submitted for this participant.");
-            return;
-          }
-
-          navigate(`/deleteRequest/${selectedParticipant.participants_ID}`);
-        } catch (error) {
-          console.error("Error checking request existence:", error);
-          alert("Error checking if a request already exists.");
-        }
-      }}
-      style={{
-        backgroundColor: "#f44336",
-        color: "white",
-        padding: "10px 20px",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-        fontSize: "14px"
-      }}
-    >
-      Request Deletion
-    </button>
-
   </div>
 )}
+
 
         </div>
       )}
@@ -293,4 +238,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchTraining;

@@ -75,6 +75,13 @@ const Home = () => {
         </div>
 
         <div>
+          <Link to="/searchTraining">
+            <button className="styled-button">Search for training</button>
+          </Link>
+        </div>
+
+
+        <div>
           <Link to="/individalRequests">
             <button className="styled-button">View my requests</button>
           </Link>

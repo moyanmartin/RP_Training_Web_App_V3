@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PostParticipant.css";
 import axios from "axios";
 import { hostName } from "./HostNames";
+import { useNavigate } from "react-router-dom";
 
 import CommunityMap from "./CommunityMap";
 
@@ -20,7 +21,9 @@ import {
 
 const PostParticipant = () => {
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
+
+ 
 
 
 const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
@@ -240,183 +243,165 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
   return (
     <div>
-      
-     
-      <form onSubmit={submitHandler}>
-  <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-    <div style={{ width: '48%' }}>
-      <label>Training Day 1:</label>
-      <input
-        type="date"
-        name="trainingDay1"
-        value={trainingDay1}
-        onChange={(e) => setTrainingDay1(e.target.value)}
-        style={errors.trainingDay1 ? { border: '1px solid red' } : {}}
-      />
-    </div>
 
-    <div style={{ width: '48%' }}>
-      <label>Training Day 2:</label>
-      <input
-        type="date"
-        name="trainingDay2"
-        value={trainingDay2}
-        onChange={(e) => setTrainingDay2(e.target.value)}
-        style={errors.trainingDay2 ? { border: '1px solid red' } : {}}
-        
-      />
-    </div>
-
-    <div style={{ width: '48%', marginTop: '20px' }}>
-    <label>Modality:</label>
-      <ModalityDropdown
-        value={modality}
-        onChange={(e) => setModality(e.target.value)}
-        style={errors.modality ? { border: '1px solid red' } : {}}
-      />
-    </div>
-
-    <div style={{ width: '48%', marginTop: '20px' }}>
-      <label>RJ Centre Location:</label>
-        <RJCentreLocationDropdown
-          value={centreLocation}
-          onChange={(e) => setCentreLocation(e.target.value)}
-          style={errors.centreLocation ? { border: '1px solid red' } : {}}
-        />
-    </div>
-  </div>
-
-  <div style={{ display: 'flex', gap: '20px' }}>
-    <div style={{ width: '48%' }}>
-    <label>Type of institution:</label>
-    <TypeOfInstitutionDropdown value={institutionType} 
-      onChange={handleInstitutionTypeChange}
-      style={errors.institutionType ? { border: '1px solid red' } : {}}
-      />
-    </div>
-    
-    <div style={{ width: '48%' }}>
-    <label>Name of institution:</label>
-    <InstitutionNameDropdown institution={institutionType} value={institutionName} 
-    onChange={(e) => setInstitutionName(e.target.value)} 
-    style={errors.institutionName ? { border: '1px solid red' } : {}}
-    />
-    </div>
-  </div>
-    <button
-      type="button"
-      onClick={() => setActiveMap('map1')}
-      style={{
-        padding: '10px 20px',
-        backgroundColor: 'green',
-        color: 'white',
-        marginLeft: '10px',
-      }}
-    >
-      Open Map
-    </button>
-  <div style={{ display: 'flex', gap: '20px' }}>
-    <div style={{ width: '48%' }}> 
-    <label>Institution Parish:</label>
-    <input
-        type="text"
-        value={institutionParish}
-        onChange={(e) => setInstitutionParish(e.target.value)}
-        placeholder="Parish"
-        readOnly
-      />
-    </div>
-
-    <div style={{ width: '48%' }}>
-    <label>Institution Community:</label>
-    <input
-        type="text"
-        value={institutionCommunity}
-        onChange={(e) => setInstitutionCommunity(e.target.value)}
-        placeholder="Community"
-        readOnly
-      />
-    </div>
-  </div>
-
-  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-    <div style={{ width: '48%' }}>
-      <label>Training Instructor1 Name:</label>
-      <input
-        type="text"
-        name="trainingInstructor1"
-        value={trainingInstructor1}
-        onChange={(e) => setTrainingInstructor1(e.target.value)}
-      />
-    </div>
-
-    <div style={{ width: '48%' }}>
-      <label>Training Instructor2 Name:</label>
-      <input
-        type="text"
-        name="trainingInstructor2"
-        value={trainingInstructor2}
-        onChange={(e) => setTrainingInstructor2(e.target.value)}
-      />
-    </div>
-
-    <div style={{ display: 'flex', gap: '20px' }}>
-      <div style={{ width: '48%' }}>
-        <label>Participant's First Name:</label>
-        <input
-          type="text"
-          name="participantFirstName"
-          value={participantFirstName}
-          onChange={(e) => setParticipantFirstName(e.target.value)}
-          style={errors.participantFirstName ? { border: '1px solid red' } : {}}
-        />
-      </div>
-
-      <div style={{ width: '48%' }}>
-        <label>Participant's Last Name:</label>
-        <input
-          type="text"
-          name="participantLastName"
-          value={participantLastName}
-          onChange={(e) => setParticipantLastName(e.target.value)}
-          style={errors.participantLastName ? { border: '1px solid red' } : {}}
-        />
-      </div>
-    </div>
-
-    <div style={{ width: '48%' }}>
-    <label>Select sex:</label>
-      <GenderDropdown
-        value={sex}
-        onChange={(e) => setSex(e.target.value)}
-        style={errors.sex? { border: '1px solid red' } : {}}
-        placeholder="Select sex"
-      />
-    </div>
-
-    <div style={{ width: '48%' }}>
-      <label>Date of Birth:</label>
-      <input
-        type="date"
-        name="dateOfBirth"
-        value={dateOfBirth}
-        onChange={(e) => setDateOfBirth(e.target.value)}
-        style={errors.dateOfBirth? { border: '1px solid red' } : {}}
-      />
-    </div>
-
-    <div style={{ width: '48%' }}>
-    <label>Position:</label>
-    <ParticipantPositionDropdown 
-    institution={institutionType} 
-    value={position} 
-    onChange={(e) => setPosition(e.target.value)} 
-    style={errors.position? { border: '1px solid red' } : {}}
-    />
-    </div>
-
-
+      <div style={{ position: "fixed", top: "20px", left: "20px" }}>
             <button
+              onClick={() => navigate("/home")}
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1976d2",
+                textDecoration: "underline",
+                cursor: "pointer",
+                fontSize: "16px"
+              }}
+            >
+              Home
+            </button>
+          </div>
+
+      <form onSubmit={submitHandler}>
+        
+          <label>Training Day 1:</label>
+          <input
+            type="date"
+            name="trainingDay1"
+            value={trainingDay1}
+            onChange={(e) => setTrainingDay1(e.target.value)}
+            style={errors.trainingDay1 ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>Training Day 2:</label>
+          <input
+            type="date"
+            name="trainingDay2"
+            value={trainingDay2}
+            onChange={(e) => setTrainingDay2(e.target.value)}
+            style={errors.trainingDay2 ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>Modality:</label>
+          <ModalityDropdown
+            value={modality}
+            onChange={(e) => setModality(e.target.value)}
+            style={errors.modality ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>RJ Centre Location:</label>
+          <RJCentreLocationDropdown
+            value={centreLocation}
+            onChange={(e) => setCentreLocation(e.target.value)}
+            style={errors.centreLocation ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>Type of institution:</label>
+          <TypeOfInstitutionDropdown
+            value={institutionType}
+            onChange={handleInstitutionTypeChange}
+            style={errors.institutionType ? { border: '1px solid red' } : {}}
+          />
+  
+              <label>Name of institution:</label>
+            <InstitutionNameDropdown
+              institution={institutionType}
+              value={institutionName}
+              onChange={(e) => setInstitutionName(e.target.value)}
+              style={errors.institutionName ? { border: '1px solid red' } : {}}
+            />
+
+            <label>Use map to find community and parish:</label>
+
+          <button
+            type="button"
+            onClick={() => setActiveMap('map1')}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'green',
+              color: 'white',
+              marginLeft: '10px',
+            }}
+          >
+            Open Map
+          </button>
+  
+          <label>Institution Parish:</label>
+          <input
+            type="text"
+            value={institutionParish}
+            onChange={(e) => setInstitutionParish(e.target.value)}
+            placeholder="Parish"
+            readOnly
+          />
+  
+          <label>Institution Community:</label>
+          <input
+            type="text"
+            value={institutionCommunity}
+            onChange={(e) => setInstitutionCommunity(e.target.value)}
+            placeholder="Community"
+            readOnly
+          />
+  
+          <label>Training Instructor1 Name:</label>
+          <input
+            type="text"
+            name="trainingInstructor1"
+            value={trainingInstructor1}
+            onChange={(e) => setTrainingInstructor1(e.target.value)}
+          />
+  
+          <label>Training Instructor2 Name:</label>
+          <input
+            type="text"
+            name="trainingInstructor2"
+            value={trainingInstructor2}
+            onChange={(e) => setTrainingInstructor2(e.target.value)}
+          />
+  
+          <label>Participant's First Name:</label>
+          <input
+            type="text"
+            name="participantFirstName"
+            value={participantFirstName}
+            onChange={(e) => setParticipantFirstName(e.target.value)}
+            style={errors.participantFirstName ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>Participant's Last Name:</label>
+          <input
+            type="text"
+            name="participantLastName"
+            value={participantLastName}
+            onChange={(e) => setParticipantLastName(e.target.value)}
+            style={errors.participantLastName ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>Select sex:</label>
+          <GenderDropdown
+            value={sex}
+            onChange={(e) => setSex(e.target.value)}
+            style={errors.sex ? { border: '1px solid red' } : {}}
+            placeholder="Select sex"
+          />
+  
+          <label>Date of Birth:</label>
+          <input
+            type="date"
+            name="dateOfBirth"
+            value={dateOfBirth}
+            onChange={(e) => setDateOfBirth(e.target.value)}
+            style={errors.dateOfBirth ? { border: '1px solid red' } : {}}
+          />
+  
+          <label>Position:</label>
+          <ParticipantPositionDropdown
+            institution={institutionType}
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+            style={errors.position ? { border: '1px solid red' } : {}}
+          />
+          <label>Use map to find locality, community and parish:</label>
+          <button
             type="button"
             onClick={() => setActiveMap('map2')}
             style={{
@@ -428,136 +413,116 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
           >
             Open Map
           </button>
-
+  
+          <label>Street Number and Name:</label>
+          <input
+            type="text"
+            name="street_Num_Name"
+            value={street_Num_Name}
+            onChange={(e) => setStreet_Num_Name(e.target.value)}
+            placeholder="eg. 10 Main Street"
+          />
+  
+          <label>Locality:</label>
+          <input
+            type="text"
+            value={locality}
+            onChange={(e) => setLocality(e.target.value)}
+            placeholder="eg. KGN 1"
+            readOnly
+          />
+  
+          <label>Participant Parish:</label>
+          <input
+            type="text"
+            value={participantParish}
+            onChange={(e) => setParticipantParish(e.target.value)}
+            placeholder="Parish"
+            readOnly
+          />
+  
+          <label>Participant Community:</label>
+          <input
+            type="text"
+            value={participantCommunity}
+            onChange={(e) => setParticipantCommunity(e.target.value)}
+            placeholder="Community"
+            readOnly
+          />
+  
+          <label>Participant's Telephone:</label>
+          <input
+            type="text"
+            name="participantTelephone"
+            value={participantTelephone}
+            onChange={(e) => setParticipantTelephone(e.target.value)}
+          />
+  
+          <label>Participant's Email:</label>
+          <input
+            type="text"
+            name="participantEmail"
+            value={participantEmail}
+            onChange={(e) => setParticipantEmail(e.target.value)}
+          />
           
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <div style={{ width: '48%' }}>
-            <label>Street Number and Name:</label>
-            <input
-              type="text"
-              name="street_Num_Name"
-              value={street_Num_Name}
-              onChange={(e) => setStreet_Num_Name(e.target.value)}
-              placeholder="10 Main Street"
+          <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-start', gap: '15px' }}>
+          <label>Certified:</label>
+            <CertificationRadioButtons
+              value={certified}
+              onChange={(e) => setCertified(e.target.value)}
             />
+          </div>
+
+  
+        <div style={{ marginTop: '20px', display: 'flex', gap: '15px' }}>
+          <button
+            type="submit"
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'blue',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Submit
+          </button>
+  
+          <button
+            type="button"
+            onClick={clearForm}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'gray',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Clear Form
+          </button>
+  
+          <button
+            type="button"
+            onClick={clearParticipant}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: 'orange',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Clear Participant
+          </button>
         </div>
-      
-
-      <div style={{ width: '48%' }}>
-        <label>Locality:</label>
-        <input
-        type="text"
-        value={locality}
-        onChange={(e) => setLocality(e.target.value)}
-        placeholder="KGN 1"
-        readOnly
-      />
-      </div>
-    </div>
-
-        <div style={{ width: '48%' }}>
-        <label>Participant Parish:</label>
-        <input
-        type="text"
-        value={participantParish}
-        onChange={(e) => setParticipantParish(e.target.value)}
-        placeholder="Parish"
-        readOnly
-      />
-        </div>
-        
-        <div style={{ width: '48%' }}>
-        <label>Participant Community:</label>      
-        <input
-        type="text"
-        value={participantCommunity}
-        onChange={(e) => setParticipantCommunity(e.target.value)}
-        placeholder="Community"
-        readOnly
-
-      />
-        </div>
-
-    <div style={{ width: '48%' }}>
-      <label>Participant's Telephone:</label>
-      <input
-        type="text"
-        name="participantTelephone"
-        value={participantTelephone}
-        onChange={(e) => setParticipantTelephone(e.target.value)}
-      />
-    </div>
-
-    <div style={{ width: '48%' }}>
-      <label>Participant's Email:</label>
-      <input
-        type="text"
-        name="participantEmail"
-        value={participantEmail}
-        onChange={(e) => setParticipantEmail(e.target.value)}
-      />
-    </div>
-    
-    <label>Certified:</label>
-    <CertificationRadioButtons
-      value={certified}
-      onChange={(e) => setCertified(e.target.value)}
-    />
-
-
-  </div>
-
-  <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '15px' }}>
-  <button
-    type="submit"
-    style={{
-      padding: '10px 20px',
-      backgroundColor: 'blue',
-      color: 'white',
-      border: 'none',
-      cursor: 'pointer',
-    }}
-  >
-    Submit
-  </button>
-
-  <button
-    type="button"
-    onClick={clearForm}
-    style={{
-      padding: '10px 20px',
-      backgroundColor: 'gray',
-      color: 'white',
-      border: 'none',
-      cursor: 'pointer',
-    }}
-  >
-    Clear Form
-  </button>
-
-  <button
-    type="button"
-    onClick={clearParticipant}
-    style={{
-      padding: '10px 20px',
-      backgroundColor: 'orange',
-      color: 'white',
-      border: 'none',
-      cursor: 'pointer',
-    }}
-  >
-    Clear Participant
-  </button>
-</div>
-
-</form>
-
-    {activeMap && (
-        <CommunityMap onFeatureSelect={handleFeatureSelect} />
-      )}
-
+      </form>
+  
+      {activeMap && <CommunityMap onFeatureSelect={handleFeatureSelect} />}
     </div>
   );
+  
 };
 
 export default PostParticipant;

@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { loadModules } from "esri-loader";
+import { useNavigate } from "react-router-dom";
 
 const CommunityMap = ({ onFeatureSelect }) => {
+  const navigate = useNavigate();
   const mapRef = useRef(null);
   const view = useRef(null);
 
@@ -215,17 +217,24 @@ const CommunityMap = ({ onFeatureSelect }) => {
   }, [onFeatureSelect]);
 
   return (
-    <div
-      ref={mapRef}
-      style={{
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
-      }}
-    ></div>
+    <div>
+      <button onClick={() => navigate(-1)} style={{ margin: "20px" }}>
+        Back
+      </button>
+      <div
+        ref={mapRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0
+        }}
+      ></div>
+    </div>
   );
 };
 
 export default CommunityMap;
+
+
