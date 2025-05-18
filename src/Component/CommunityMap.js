@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { loadModules } from "esri-loader";
-import { useNavigate } from "react-router-dom";
+import * as geometryEngine from "@arcgis/core/geometry/geometryEngine.js";
+
 
 const CommunityMap = ({ onFeatureSelect }) => {
-  const navigate = useNavigate();
   const mapRef = useRef(null);
   const view = useRef(null);
 
@@ -174,21 +174,34 @@ const CommunityMap = ({ onFeatureSelect }) => {
             postalQuery.spatialRelationship = "intersects";
             postalQuery.returnGeometry = false;
             postalQuery.outFields = ["POST_CODES"];
+            
+            const roadQuery = layers.road.createQuery();
 
-            const [communityResult, parishResult, postalResult] = await Promise.all([
+            const buffer = geometryEngine.buffer(mapPoint, 5, "meters"); // Then buffer
+            roadQuery.geometry = buffer;
+            roadQuery.spatialRelationship = "intersects";
+            roadQuery.returnGeometry = false;
+            roadQuery.outFields = ["ROAD_NAME"];
+
+
+            const [communityResult, parishResult, postalResult, roadResult] = await Promise.all([
               layers.community.queryFeatures(communityQuery),
               layers.parish.queryFeatures(parishQuery),
-              layers.postal.queryFeatures(postalQuery)
+              layers.postal.queryFeatures(postalQuery),
+              layers.road.queryFeatures(roadQuery)
             ]);
 
             const selectedCommunity = communityResult.features[0]?.attributes?.COMM_NAME || "";
             const selectedParish = parishResult.features[0]?.attributes?.PARISH || "";
             const selectedLocality = postalResult.features[0]?.attributes?.POST_CODES || "";
+            const selectedStreet_Name = roadResult.features[0]?.attributes?.ROAD_NAME || "";
+
 
             console.log("Queried Attributes:", {
               COMM_NAME: selectedCommunity,
               PARISH: selectedParish,
-              POST_CODES: selectedLocality
+              POST_CODES: selectedLocality,
+              ROAD_NAME: selectedStreet_Name
             });
 
             if (typeof onFeatureSelect === "function") {
@@ -196,6 +209,7 @@ const CommunityMap = ({ onFeatureSelect }) => {
                 COMM_NAME: selectedCommunity,
                 PARISH: selectedParish,
                 POST_CODES: selectedLocality,
+                ROAD_NAME: selectedStreet_Name,
                 LATITUDE: mapPoint.latitude,
                 LONGITUDE: mapPoint.longitude
               });
@@ -220,9 +234,25 @@ const CommunityMap = ({ onFeatureSelect }) => {
 
   return (
     <div>
-      <button onClick={() => navigate(-1)} style={{ margin: "20px" }}>
-        Back
-      </button>
+
+     <select
+            onChange={(e) => {
+              if (view.current) {
+                view.current.map.basemap = e.target.value;
+              }
+            }}
+           style={{ position: "absolute", top: "120px", left: "10px", width: "150px", zIndex: 10 }}
+             
+          >
+            <option value="topo-vector">Topographic</option>
+            <option value="satellite">Satellite</option>
+            <option value="hybrid">Hybrid (Satellite + Labels)</option>
+            <option value="streets-vector">Streets</option>
+            <option value="osm">OpenStreetMap</option>
+            <option value="gray-vector">Gray</option>
+            <option value="dark-gray-vector">Dark Gray</option>
+      </select>
+
       <div
         ref={mapRef}
         style={{
@@ -233,7 +263,12 @@ const CommunityMap = ({ onFeatureSelect }) => {
           right: 0
         }}
       ></div>
-    </div>
+
+
+</div>
+
+      
+    
   );
 };
 

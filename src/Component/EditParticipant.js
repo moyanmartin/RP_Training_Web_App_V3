@@ -49,7 +49,8 @@ import {
       participantLastName: "",
       sex: "",
       dateOfBirth: "",
-      street_Num_Name: "",
+      street_Lot_Num: "",
+      street_Name: "",
       locality: "",
       position: "",
       participantParish: "",
@@ -116,7 +117,8 @@ import {
           participantLastName: participantData.participant_Last_Name || "",
           sex: participantData.participant_Gender || "",
           dateOfBirth: participantData.date_Of_Birth || "",
-          street_Num_Name: participantData.street_Num_Name || "",
+          street_Lot_Num: participantData.street_Lot_Num || "",
+          street_Name: participantData.street_Name || "",
           locality: participantData.locality || "",
           participantParish: participantData.participant_Parish || "",
           participantCommunity: participantData.participant_Community || "",
@@ -193,7 +195,8 @@ import {
         Participant_Last_Name: participant.participantLastName,
         Participant_Gender: participant.sex,
         Date_Of_Birth: dateOfBirth,  // use formatted date
-        Street_Num_Name: participant.street_Num_Name,
+        Street_Lot_Num: participant.street_Lot_Num,
+        Street_Name: participant.street_Name,
         Locality: participant.locality,
         Participant_Parish: participant.participantParish,
         Participant_Community: participant.participantCommunity,
@@ -418,12 +421,20 @@ import {
             Open Map
           </button>
   
-              <label>Street number and name:</label>
+              <label>Street/Lot number:</label>
               <input
                 type="text"
-                name="street_Num_Name"
-                value={participant.street_Num_Name}
-                onChange={(e) => setParticipant({ ...participant, street_Num_Name: e.target.value })}
+                name="street_Lot_Num"
+                value={participant.street_Lot_Num}
+                onChange={(e) => setParticipant({ ...participant, street_Lot_Num: e.target.value })}
+              />
+
+              <label>Street name:</label>
+              <input
+                type="text"
+                name="street_Name"
+                value={participant.street_Name}
+                onChange={(e) => setParticipant({ ...participant, street_Name: e.target.value })}
               />
           
  

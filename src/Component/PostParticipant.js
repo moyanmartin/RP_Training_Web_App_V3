@@ -23,13 +23,10 @@ const PostParticipant = () => {
 
   const navigate = useNavigate();
 
- 
-
-
 const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
   const [submitterEmail, setSubmitterEmail] = useState("");
-  
+
   const [trainingDay1, setTrainingDay1] = useState(null);
   const [trainingDay2, setTrainingDay2] = useState(null);
   const [centreLocation, setCentreLocation] = useState("");
@@ -37,26 +34,23 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
   const [institutionType, setInstitutionType] = useState("");
   const [institutionName, setInstitutionName] = useState([]);
   const [position, setPosition] = useState("");
-
   const [institutionParish, setInstitutionParish] = useState("");
   const [institutionCommunity, setInstitutionCommunity] = useState("");
   const [institutionX, setInstitutionX] = useState("");
   const [institutionY, setInstitutionY] = useState("");
-
   const [trainingInstructor1, setTrainingInstructor1] = useState("");
   const [trainingInstructor2, setTrainingInstructor2] = useState("");
   const [participantFirstName, setParticipantFirstName] = useState("");
   const [participantLastName, setParticipantLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [sex, setSex] = useState("");
-  const [street_Num_Name, setStreet_Num_Name] = useState("");
-
+  const [street_Lot_Num, setStreet_Lot_Num] = useState("");
+  const [street_Name, setStreet_Name] = useState("");
   const [locality, setLocality] = useState("");
   const [participantParish, setParticipantParish] = useState("");
   const [participantCommunity, setParticipantCommunity] = useState("");
   const [participantX, setParticipantX] = useState("");
   const [participantY, setParticipantY] = useState("");
-
   const [participantTelephone, setParticipantTelephone] = useState("");
   const [participantEmail, setParticipantEmail] = useState("");
   const [certified, setCertified] = useState("no");
@@ -79,7 +73,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
     setSex('');
     setDateOfBirth('');
     setPosition('');
-    setStreet_Num_Name('');
+    setStreet_Lot_Num('');
+    setStreet_Name('');
     setLocality('');
     setParticipantParish('');
     setParticipantCommunity('');
@@ -94,7 +89,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
     setSex('');
     setDateOfBirth('');
     setPosition('');
-    setStreet_Num_Name('');
+    setStreet_Lot_Num('');
+    setStreet_Name('');
     setLocality('');
     setParticipantParish('');
     setParticipantCommunity('');
@@ -111,7 +107,15 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
 
 
 
-  const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES, LATITUDE, LONGITUDE }) => {
+  const handleFeatureSelect = ({ COMM_NAME, PARISH, ROAD_NAME, POST_CODES, LATITUDE, LONGITUDE }) => {
+    
+    console.log("MAP CLICK RECEIVED:");
+    console.log("ROAD_NAME:", ROAD_NAME); // ✅ Add this line
+    console.log("COMM_NAME:", COMM_NAME);
+    console.log("PARISH:", PARISH);
+    console.log("POST_CODES:", POST_CODES);
+    console.log("LATITUDE:", LATITUDE, "LONGITUDE:", LONGITUDE);
+    
     if (activeMap === 'map1') {
       setInstitutionParish(PARISH);
       setInstitutionCommunity(COMM_NAME);
@@ -122,6 +126,7 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
     } else if (activeMap === 'map2') {
       setParticipantParish(PARISH);
       setParticipantCommunity(COMM_NAME);
+      setStreet_Name(ROAD_NAME);
       setLocality(POST_CODES);
       setParticipantX(LONGITUDE);
       setParticipantY(LATITUDE);
@@ -213,8 +218,8 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
       Participant_Last_Name: participantLastName,
       Participant_Gender: sex,
       Date_Of_Birth: dob,
-      Street_Num_Name: street_Num_Name,
-
+      Street_Lot_Num: street_Lot_Num,
+      Street_Name: street_Name,
       Locality: locality,
       Participant_Parish: participantParish,
       Participant_Community: participantCommunity,
@@ -411,14 +416,24 @@ const [activeMap, setActiveMap] = useState(null); // null | 'map1' | 'map2'
           >
             Open Map
           </button>
-  
-          <label>Street Number and Name:</label>
+            
+
+            <label>Street/Lot Number:</label>
           <input
             type="text"
-            name="street_Num_Name"
-            value={street_Num_Name}
-            onChange={(e) => setStreet_Num_Name(e.target.value)}
-            placeholder="eg. 10 Main Street" style={{ fontStyle: 'italic', color: 'gray' }}
+            name="street_Lot_Num"
+            value={street_Lot_Num}
+            onChange={(e) => setStreet_Lot_Num(e.target.value)}
+            //placeholder="eg. 10 Main Street" style={{ fontStyle: 'italic', color: 'gray' }}
+          />
+
+          <label>Street Name:</label>
+          <input
+            type="text"
+            name="street_Name"
+            value={street_Name}
+            onChange={(e) => setStreet_Name(e.target.value)}
+            placeholder="eg. Main Street" style={{ fontStyle: 'italic', color: 'gray' }}
           />
   
           <label>Locality:</label>
