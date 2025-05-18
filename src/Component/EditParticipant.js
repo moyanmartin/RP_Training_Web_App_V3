@@ -63,7 +63,7 @@ import {
       certified: "no",
     });
   
-    const handleFeatureSelect = ({ COMM_NAME, PARISH, POST_CODES, LATITUDE, LONGITUDE }) => {
+    const handleFeatureSelect = ({ COMM_NAME, PARISH, ROAD_NAME, POST_CODES, LATITUDE, LONGITUDE }) => {
       if (activeMap === 'map1') {
 
         setParticipant({
@@ -79,6 +79,7 @@ import {
           ...participant,
           participantParish: PARISH,
           participantCommunity: COMM_NAME, // Reset community when parish changes
+          street_Name: ROAD_NAME,
           locality: POST_CODES,
           participantX: LONGITUDE,
           participantY: LATITUDE,
