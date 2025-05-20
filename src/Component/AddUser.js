@@ -20,8 +20,8 @@ export class AddUser extends Component {
       telephone: "",
       centreLocation: "",
       position: "",
-      typeOfUser: "",
-      password: ""
+      typeOfUser: ""
+   
     };
   }
 
@@ -54,8 +54,8 @@ export class AddUser extends Component {
       Telephone: this.state.telephone,
       Email: this.state.email,
       RJ_Location: this.state.centreLocation,
-      Type_Of_User: this.state.typeOfUser,
-      Pass_Word: this.state.password
+      Type_Of_User: this.state.typeOfUser
+     
     };
 
     console.log("Submitting Data:", JSON.stringify(formData, null, 2));
@@ -127,14 +127,6 @@ export class AddUser extends Component {
             name="Email"
             value={this.state.email}
             onChange={(e) => this.setState({ email: e.target.value })}
-          />
-
-          <label>Password:</label>
-          <input
-            type="text"
-            name="Pass_Word"
-            value={this.state.password}
-            onChange={(e) => this.setState({ password: e.target.value })}
           />
 
           <button type="submit" className="submit-button">

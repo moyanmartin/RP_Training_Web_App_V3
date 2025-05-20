@@ -63,6 +63,12 @@ const Home = () => {
         <p>This is the landing page for the restorative practice participants.</p>
 
         <div>
+          <Link to="/dashBoard">
+            <button className="styled-button">Dashboard</button>
+          </Link>
+        </div>
+
+        <div>
           <Link to="/post">
             <button className="styled-button">Add a participant</button>
           </Link>

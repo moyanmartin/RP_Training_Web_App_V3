@@ -15,13 +15,16 @@ import DeleteParticipantRequested from "./Component/DeleteParticipantRequested";
 import DenyDeleteRequest from "./Component/DenyDeleteRequest";
 import DeleteUser from "./Component/DeleteUser";
 import CommunityMapPage from "./Component/CommunityMap";
+import Dashboard from "./Component/Dashboard";
+import Login from "./Component/Login";
 
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} /> {/* Root path */}
+      <Route path="/" element={<Login />} /> {/* Root path */}
       <Route path="/home" element={<Home />} />
+      <Route path="/dashBoard" element={<Dashboard />} />
       <Route path="/addUser" element={<AddUser />} />
       <Route path="/deleteUser" element={<DeleteUser />} />
       <Route path="/post" element={<PostParticipant />} />
