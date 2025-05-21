@@ -32,9 +32,12 @@ export class AddUser extends Component {
   submitHandler = async (event) => {
     event.preventDefault();
 
+    console.log("Checking email existence for:", this.state.email);
+
+
     try {
       const checkResponse = await axios.get(`https://${hostName}/api/Staff/StaffExists`, {
-        params: { Email: this.state.email }
+        params: { email: this.state.email }
       });
 
       if (checkResponse.data.exists) {

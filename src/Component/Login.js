@@ -31,6 +31,8 @@ const Login = () => {
     const accessToken = loginResponse.accessToken;
     const email = loginResponse.account.username;
 
+    console.log("Username is:", email);
+
     localStorage.setItem('email', email);
 
     const staffResponse = await axios.get(`https://${hostName}/api/Staff/${email}`, {
@@ -44,6 +46,9 @@ const Login = () => {
     localStorage.setItem('firstName', userData.first_Name);
     localStorage.setItem('lastName', userData.last_Name);
     localStorage.setItem('fullName', fullName);
+
+    console.log("Username is:", email, "Full name:", fullName, "Type of user:", userData.type_Of_User);
+
 
     navigate('/home');
 
@@ -59,7 +64,15 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={handleLogin}>Login with Azure AD</button>
+      <button 
+      style={{
+              padding: '10px 20px',
+              backgroundColor: 'blue',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+      onClick={handleLogin}>Login with Azure Active Directory</button>
     </div>
   );
 };

@@ -47,40 +47,44 @@ const DeleteUser = () => {
   }, [removedEmail]);
 
   const handleDelete = async () => {
-    setLoading(true);
-    setError("");
-    setSuccessMessage(""); // Reset success message on every delete attempt
+  const confirmed = window.confirm(`Are you sure you want to delete the user: ${removedName} (${removedEmail})?`);
+  if (!confirmed) return;
 
-    try {
-      // Step 1: Delete the participant
-      await axios.delete(deleteUserUrl);
+  setLoading(true);
+  setError("");
+  setSuccessMessage(""); // Reset success message on every delete attempt
 
-      // Step 2: Log who deleted this user
-      const remover = localStorage.getItem("fullName");
-      const removerEmail = localStorage.getItem("email");
+  try {
+    // Step 1: Delete the participant
+    await axios.delete(deleteUserUrl);
 
-      const logData = {
-        Remover: remover,
-        Remover_Email: removerEmail,
-        Removed: removedName,
-        Removed_Email: removedEmail,
-        Date_Removed: formatted,
-      };
+    // Step 2: Log who deleted this user
+    const remover = localStorage.getItem("fullName");
+    const removerEmail = localStorage.getItem("email");
 
-      await axios.post(logDeleteUrl, logData);
+    const logData = {
+      Remover: remover,
+      Remover_Email: removerEmail,
+      Removed: removedName,
+      Removed_Email: removedEmail,
+      Date_Removed: formatted,
+    };
 
-      // Set success message after the user is deleted and the log is created
-      setSuccessMessage(`User with email ${removedEmail} has been successfully deleted.`);
+    await axios.post(logDeleteUrl, logData);
 
-      // Navigate to another page after successful deletion
-      navigate("/home");
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete the user or log the action.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Set success message after the user is deleted and the log is created
+    setSuccessMessage(`User with email ${removedEmail} has been successfully deleted.`);
+
+    // Navigate to another page after successful deletion
+    navigate("/home");
+  } catch (err) {
+    console.error(err);
+    setError("Failed to delete the user or log the action.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div style={{ padding: "1rem" }}>
